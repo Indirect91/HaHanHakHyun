@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class PlayerMove : MonoBehaviour
 {
+    /*이제 쓸일은 없는 스크립이지만 나중에 참고하고하세여어어어*/
+    //확인용
+    [SerializeField] public bool isHakSupid;
+
     /*플레이어 Public*/
     public float speed = 1.0f; //속도
     public float rotSpeed = 5.0f; //도는 속도
