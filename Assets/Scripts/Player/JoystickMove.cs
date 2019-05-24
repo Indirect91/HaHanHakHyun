@@ -102,7 +102,7 @@ public class JoystickMove : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
         //회전
         //rotate.Set(0.0f, value.x, 0.0f);
         float angle = Mathf.Atan2(-value.y, value.x) * Mathf.Rad2Deg;
-        Debug.Log(angle+90);
+        //Debug.Log(angle+90);
         //Quaternion deltaRotation = Quaternion.AngleAxis(value.x, transform.up);
         
         Quaternion turnRotate = Quaternion.Euler(new Vector3(0,angle+90,0));
