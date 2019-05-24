@@ -25,6 +25,7 @@ public class JoystickMove : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
 
     public bool isMove = false; //움직이는 중인가?
     public bool isRun = false; //뛰는 중인가?
+    public bool isAttack = false; //공격하는 중인가?
 
     Vector3 movement; //플레이어 움직임
     Vector3 rotate; //플레이어 회전
@@ -147,10 +148,26 @@ public class JoystickMove : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
     //플레이어 애니메이션 함수
     void Animating()
     {
+        if (isAttack == true)
+        {
+            if (playerAnim.GetCurrentAnimatorStateInfo(0).IsName("Attack01"))
+            {
+                isAttack = false;
+            }
+        }
+
+        //공격하고 있는가 애니메이션
+        playerAnim.SetBool("IsAttack", isAttack);
+
         //뛰고있는가 애니메이션
         playerAnim.SetBool("IsRun", isRun);
 
         //움직이는가 애니메이션
         playerAnim.SetBool("IsMove", isMove);
+    }
+
+    public void OnAttackButton()
+    {
+        isAttack = true;
     }
 }
