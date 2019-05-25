@@ -29,6 +29,7 @@ public class JoystickMove : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
 
     Vector3 movement; //플레이어 움직임
     Vector3 rotate; //플레이어 회전
+    Vector2 value; //플레이어 회전에 쓸 방향값을 다른 함수에서도 쓰려고 빼놓음
 
     bool isTouch = false; //조이스틱을 터치했는가?
 
@@ -48,32 +49,23 @@ public class JoystickMove : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
     //모든 Physic를 업데이트 한다.
     private void FixedUpdate()
     {
-        if(isTouch == true)
+        if(isTouch == true && !playerAnim.GetCurrentAnimatorStateInfo(0).IsName("Attack01"))
         {
+            //플레이어 위치
             playerRigidbody.MovePosition(playerRigidbody.position + movement);
+            //플레이어 방향
+            Turnning();
         }
 
-        //회전하는 함수
-        //turnning();
         //플레이어 애니메이션 함수
         Animating();
     }
-
-    //케이디의 이동방법
-    //void Update()
-    //{
-    //    if(isTouch == true)
-    //    {
-    //        gamePlayer.transform.position += movement;
-    //    }
-    //    
-    //}
-
+    
     //드래그
     public void OnDrag(PointerEventData eventData)
     {
         //마우스 현재 좌표 - 조이스틱 배경의 넓이
-        Vector2 value = eventData.position - (Vector2)rect_background.position;
+        value = eventData.position - (Vector2)rect_background.position;
 
         //ClampMagnitude : 어떤 값을 가두는 것
         //(값, 가둘 범위) : 값은 가둘 범위를 넘지않게 가두는 것
@@ -94,21 +86,11 @@ public class JoystickMove : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
         //방향값만 남게 만들기
         value = value.normalized;
         movement = new Vector3(value.x * moveSpeed * distance * Time.deltaTime, 0.0f, value.y * moveSpeed * distance * Time.deltaTime);
-
-        //Quaternion deltaRotation = Quaternion.AngleAxis(value.x, transform.up) * Quaternion.AngleAxis(value.y, Vector3.right);
-
-
-
-        //회전
-        //rotate.Set(0.0f, value.x, 0.0f);
-        float angle = Mathf.Atan2(-value.y, value.x) * Mathf.Rad2Deg;
-        //Debug.Log(angle+90);
-        //Quaternion deltaRotation = Quaternion.AngleAxis(value.x, transform.up);
         
-        Quaternion turnRotate = Quaternion.Euler(new Vector3(0,angle+90,0));
-        playerRigidbody.MoveRotation(turnRotate);
+        
     }
 
+    //손가락 눌렀을때
     public void OnPointerDown(PointerEventData eventData)
     {
         isTouch = true;
@@ -128,28 +110,22 @@ public class JoystickMove : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
         movement = Vector3.zero;
     }
 
-    //회전하는 함수
-    void turnning()
+    void Turnning()
     {
-        //Quaternion == 회전만 다루는 클래스, 회전 값을 정할 수 있음
-        //다만 transform과 같이 직접 접근하여 변경할 수 없고 아래와 같이 함수를 이용해 사용가능W
+        /*플레이어 회전*/
+        float angle = Mathf.Atan2(-value.y, value.x) * Mathf.Rad2Deg;
 
-        //Quaternion turnRotation = Quaternion.LookRotation(movement); //-> 벡터가 가지고 있는 방향을 앞으로 보는 회전값을 만들어 줌
-        //Quaternion newRotation = Quaternion.Slerp(playerRigidBody.rotation, turnRotation, rotSpeed * Time.deltaTime); //-> 휙휙 바뀌는게 아닌 더 부드럽게 바뀌게 하기위한 Slerp
-        //playerRigidBody.MoveRotation(newRotation);
-
-        rotate.Set(0.0f, movement.y, 0.0f);
-        rotate = rotate.normalized * rotSpeed;
-
-        Quaternion turnRotate = Quaternion.Euler(rotate);
-        playerRigidbody.MoveRotation(playerRigidbody.rotation * turnRotate);
+        Quaternion turnRotate = Quaternion.Euler(new Vector3(0, angle + 90, 0));
+        playerRigidbody.MoveRotation(turnRotate);
     }
-
+    
     //플레이어 애니메이션 함수
     void Animating()
     {
+        //어택중이라면
         if (isAttack == true)
         {
+            //플레이어 공격모션이 들어갔을때 다시 false;
             if (playerAnim.GetCurrentAnimatorStateInfo(0).IsName("Attack01"))
             {
                 isAttack = false;
@@ -164,10 +140,14 @@ public class JoystickMove : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
 
         //움직이는가 애니메이션
         playerAnim.SetBool("IsMove", isMove);
-    }
+    } 
 
+    //공격 버튼 눌렀을 때
     public void OnAttackButton()
     {
-        isAttack = true;
+        if (!playerAnim.GetCurrentAnimatorStateInfo(0).IsName("Attack01"))
+        {
+            isAttack = true;
+        }
     }
 }
