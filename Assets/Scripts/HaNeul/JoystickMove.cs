@@ -13,7 +13,7 @@ public class JoystickMove : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
     //캔버스와 캔버스의 child를 보면 일반 transform이 아닌 rect transform이다.
     //조이스틱의 범위 제한을 위해
     [SerializeField] RectTransform rect_background; //조이스틱 배경UI
-    [SerializeField] RectTransform rect_Joystick; //조이스틱 UI
+    [SerializeField] RectTransform rect_Joystick; //조이스틱 UI 
 
     //원형 크기의 정보 저장
     float radius; //반지름
