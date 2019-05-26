@@ -1496,6 +1496,7 @@ GameObject:
   - component: {fileID: 4715874217910886684}
   - component: {fileID: 4675215317545817486}
   - component: {fileID: 4324968507922505968}
+  - component: {fileID: 189025241609335531}
   - component: {fileID: 7142374147071181747}
   m_Layer: 20
   m_Name: Bear_AI
@@ -1537,7 +1538,7 @@ Animator:
   m_GameObject: {fileID: 4622696181674161258}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 95788e7260b93224e9cfd19cc653a6bc, type: 3}
-  m_Controller: {fileID: 9100000, guid: 13762b7c88eb550469e2e5ab8ef7a0c5, type: 2}
+  m_Controller: {fileID: 9100000, guid: fbf6f45e093229d4d9616bb5759ae44e, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 1
   m_ApplyRootMotion: 1
@@ -1587,6 +1588,23 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   nextIdx: 4
+--- !u!114 &189025241609335531
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4622696181674161258}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea54b7deb6e977d4aa548bb4588a1f75, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  state: 0
+  eating: 1
+  attackDist: 1
+  traceDist: 10
+  isDie: 0
 --- !u!195 &7142374147071181747
 NavMeshAgent:
   m_ObjectHideFlags: 0

@@ -680,6 +680,7 @@ GameObject:
   - component: {fileID: 3058837486530255511}
   - component: {fileID: 288900807489258852}
   - component: {fileID: 7591145681736989876}
+  - component: {fileID: 8245713050145948071}
   m_Layer: 20
   m_Name: Bear_Polar
   m_TagString: Bear
@@ -719,7 +720,7 @@ Animator:
   m_GameObject: {fileID: 3077509252793662323}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 95788e7260b93224e9cfd19cc653a6bc, type: 3}
-  m_Controller: {fileID: 9100000, guid: 13762b7c88eb550469e2e5ab8ef7a0c5, type: 2}
+  m_Controller: {fileID: 9100000, guid: fbf6f45e093229d4d9616bb5759ae44e, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 1
   m_ApplyRootMotion: 1
@@ -791,6 +792,23 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   nextIdx: 4
+--- !u!114 &8245713050145948071
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3077509252793662323}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea54b7deb6e977d4aa548bb4588a1f75, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  state: 0
+  eating: 0
+  attackDist: 1
+  traceDist: 10
+  isDie: 0
 --- !u!1 &3077545886920901083
 GameObject:
   m_ObjectHideFlags: 0

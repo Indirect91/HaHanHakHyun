@@ -1530,6 +1530,7 @@ GameObject:
   - component: {fileID: 3907310940003017762}
   - component: {fileID: 2821779901797689671}
   - component: {fileID: 7648577982026972842}
+  - component: {fileID: 8032733924827884947}
   m_Layer: 20
   m_Name: Bear_Black
   m_TagString: Bear
@@ -1570,7 +1571,7 @@ Animator:
   m_GameObject: {fileID: 3962922179843458502}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 95788e7260b93224e9cfd19cc653a6bc, type: 3}
-  m_Controller: {fileID: 9100000, guid: 13762b7c88eb550469e2e5ab8ef7a0c5, type: 2}
+  m_Controller: {fileID: 9100000, guid: fbf6f45e093229d4d9616bb5759ae44e, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 1
   m_ApplyRootMotion: 1
@@ -1642,6 +1643,23 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   nextIdx: 4
+--- !u!114 &8032733924827884947
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3962922179843458502}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea54b7deb6e977d4aa548bb4588a1f75, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  state: 0
+  eating: 0
+  attackDist: 1
+  traceDist: 10
+  isDie: 0
 --- !u!1 &3962966676473182740
 GameObject:
   m_ObjectHideFlags: 0
