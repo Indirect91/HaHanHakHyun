@@ -36,11 +36,21 @@ public class JoystickMove : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
     /*컴포넌트*/
     Rigidbody playerRigidbody;
     Animator playerAnim;
+    AudioSource audio;
+
+    //공격용 이펙트
+    [SerializeField] GameObject StarBall;
+    [SerializeField] GameObject Thunderball;
+
+    //이펙트 소리
+    [SerializeField] AudioClip StarBallSD;
+    [SerializeField] AudioClip ThunderBallSD;
 
     void Start()
     {
         playerRigidbody = gamePlayer.GetComponent<Rigidbody>();
         playerAnim = gamePlayer.GetComponent<Animator>();
+        audio = GetComponent<AudioSource>();
 
         //반지름 셋팅
         radius = rect_background.rect.width * 0.5f;
@@ -142,12 +152,49 @@ public class JoystickMove : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
         playerAnim.SetBool("IsMove", isMove);
     } 
 
-    //공격 버튼 눌렀을 때
-    public void OnAttackButton()
+    //스타볼 나타나게 하는 마법 공격버튼
+    public void OnAttackButton_StarBall()
     {
         if (!playerAnim.GetCurrentAnimatorStateInfo(0).IsName("Attack01"))
         {
-            isAttack = true;
+            if (PlayerInfo.clickTarget != null)
+            {
+                isAttack = true;
+
+                //마법이 나타날 지점
+                Vector3 pos = PlayerInfo.clickTarget.transform.position;
+
+                //마법이펙트 오브젝트를 생성 
+                //Instantiate:게임오브젝트의 클론을 생성 (복제할 오브젝트, 오브젝트 위치, 회전값)
+                Instantiate(StarBall, pos, Quaternion.Euler(0.0f, 0.0f, 0.0f));
+
+                //사운드 발생
+                audio.clip = StarBallSD;
+                audio.Play();
+            }
+        }
+    }
+
+    //썬더볼 나타나게 하는 마법 공격버튼
+    public void OnAttackButton_ThunderBall()
+    {
+        if (!playerAnim.GetCurrentAnimatorStateInfo(0).IsName("Attack01"))
+        {
+            if (PlayerInfo.clickTarget != null)
+            {
+                isAttack = true;
+
+                //마법이 나타날 지점
+                Vector3 pos = PlayerInfo.clickTarget.transform.position;
+
+                //마법이펙트 오브젝트를 생성 
+                //Instantiate:게임오브젝트의 클론을 생성 (복제할 오브젝트, 오브젝트 위치, 회전값)
+                Instantiate(Thunderball, pos, Quaternion.Euler(0.0f, 0.0f, 0.0f));
+
+                //사운드 발생
+                audio.clip = ThunderBallSD;
+                audio.Play();
+            }
         }
     }
 }
