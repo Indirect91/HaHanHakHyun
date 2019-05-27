@@ -10,6 +10,8 @@ TagManager:
   - Rabbit
   - Cougar
   - Sommons
+  - UIDrag
+  - animalsInfo
   layers:
   - Default
   - TransparentFX
