@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerAct : MonoBehaviour
 {
-    bool isSwim = false;
+    public static bool isSwim = false;
 
     /*컴포넌트*/
     Animator anim;

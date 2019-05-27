@@ -36,7 +36,7 @@ public class JoystickMove : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
     /*컴포넌트*/
     Rigidbody playerRigidbody;
     Animator playerAnim;
-    AudioSource audio;
+    AudioSource playerAudio;
 
     //공격용 이펙트
     [SerializeField] GameObject StarBall;
@@ -50,7 +50,7 @@ public class JoystickMove : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
     {
         playerRigidbody = gamePlayer.GetComponent<Rigidbody>();
         playerAnim = gamePlayer.GetComponent<Animator>();
-        audio = GetComponent<AudioSource>();
+        playerAudio = GetComponent<AudioSource>();
 
         //반지름 셋팅
         radius = rect_background.rect.width * 0.5f;
@@ -96,7 +96,6 @@ public class JoystickMove : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
         //방향값만 남게 만들기
         value = value.normalized;
         movement = new Vector3(value.x * moveSpeed * distance * Time.deltaTime, 0.0f, value.y * moveSpeed * distance * Time.deltaTime);
-        
         
     }
 
@@ -157,7 +156,7 @@ public class JoystickMove : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
     {
         if (!playerAnim.GetCurrentAnimatorStateInfo(0).IsName("Attack01"))
         {
-            if (PlayerInfo.clickTarget != null)
+            if (PlayerInfo.clickTarget != null && PlayerAct.isSwim == false)
             {
                 isAttack = true;
 
@@ -169,8 +168,8 @@ public class JoystickMove : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
                 Instantiate(StarBall, pos, Quaternion.Euler(0.0f, 0.0f, 0.0f));
 
                 //사운드 발생
-                audio.clip = StarBallSD;
-                audio.Play();
+                playerAudio.clip = StarBallSD;
+                playerAudio.Play();
             }
         }
     }
@@ -180,7 +179,7 @@ public class JoystickMove : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
     {
         if (!playerAnim.GetCurrentAnimatorStateInfo(0).IsName("Attack01"))
         {
-            if (PlayerInfo.clickTarget != null)
+            if (PlayerInfo.clickTarget != null && PlayerAct.isSwim == false)
             {
                 isAttack = true;
 
@@ -192,8 +191,8 @@ public class JoystickMove : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
                 Instantiate(Thunderball, pos, Quaternion.Euler(0.0f, 0.0f, 0.0f));
 
                 //사운드 발생
-                audio.clip = ThunderBallSD;
-                audio.Play();
+                playerAudio.clip = ThunderBallSD;
+                playerAudio.Play();
             }
         }
     }
