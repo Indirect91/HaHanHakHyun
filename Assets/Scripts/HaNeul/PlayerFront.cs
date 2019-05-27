@@ -4,43 +4,28 @@ using UnityEngine;
 
 public class PlayerFront : MonoBehaviour
 {
-    private void OnTriggerStay(Collider coll)
-    {
-        Debug.Log("Stay?");
-
-        if (coll.tag == "Sommons")
-        {
-            Debug.Log("Stay 소환!");
-        }
-
-        if (coll.gameObject.layer == LayerMask.NameToLayer("Sommons"))
-        {
-            Debug.Log("Stay L 소환!");
-        }
-    }
+    public static bool isSummons = false;
 
     private void OnTriggerEnter(Collider coll)
     {
-        Debug.Log("Enter?");
-
         if (coll.tag == "Sommons")
         {
-            Debug.Log("Enter 소환!");
-        }
+            Debug.Log("소환가능");
 
-        if (coll.gameObject.layer == LayerMask.NameToLayer("Sommons"))
-        {
-            Debug.Log("Enter L 소환!");
+            isSummons = true;
         }
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerExit(Collider coll)
     {
-        if (collision.collider.tag == "Sommons")
+        if (coll.tag == "Sommons")
         {
-            Debug.Log("Stay 소환!");
+            Debug.Log("소환불가");
+
+            isSummons = false;
         }
     }
+
 
 
 }
