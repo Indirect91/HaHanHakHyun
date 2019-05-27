@@ -6,7 +6,7 @@ using UnityEngine.EventSystems;
 public class Drag : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler
 {
 
-    private Transform petTransform;
+    public Transform petTransform;
     //펫 장착?할 슬롯
     private Transform equipPetTransform;
     //펫 리스트(인벤토리)
@@ -19,19 +19,24 @@ public class Drag : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
     void Start()
     {
         petTransform = GetComponent<Transform>();
+
         //PlayerStatus란 게임오브젝트를 찾아 Transform이라는 컴포넌트를 찾아 저장
         equipPetTransform = GameObject.Find("PlayerStatus").GetComponent<Transform>();
         //PetInven이란 게임오브젝트를 찾아 Transform이라는 컴포넌트를 찾아 저장
+        //petListTransform = GameObject.FindGameObjectsWithTag("UIDrag");
         petListTransform = GameObject.Find("PetInfo").GetComponent<Transform>();
-       
 
-        itemCanvasGroup = GetComponent<CanvasGroup>();
+         itemCanvasGroup = GetComponent<CanvasGroup>();
     }
 
     //드래그 이벤트
     public void OnDrag(PointerEventData eventData)
     {
         //이벤트 발생시 아이템을 마우스 커서 위치로 이동시키기
+        //for (int i = 0; i < petTransform.Length; i++)
+        //{
+        //    petTransform[i].position = Input.mousePosition;
+        //}
         petTransform.position = Input.mousePosition;
     }
 
@@ -55,10 +60,12 @@ public class Drag : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
         itemCanvasGroup.blocksRaycasts = true;
 
         //Pet장착 슬롯에 드래그 하지 않았을 때 다시 PetList로 되돌리기
-        if(petTransform.parent == equipPetTransform)
+        if (petTransform.parent == equipPetTransform)
         {
-            petTransform.SetParent(petListTransform.transform);
-            petTransform.transform.localPosition = new Vector3(31, 10, 0);
+             petTransform.SetParent(petListTransform.transform);
+             petTransform.transform.localPosition = new Vector3(31, 10, 0);
         }
+        
+        
     }
 }
