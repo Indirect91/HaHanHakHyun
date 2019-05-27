@@ -9,6 +9,12 @@ public class CameraTest : MonoBehaviour
     Vector3 originDistance; //초기 거리 저장
     GameObject hitObstacle = null; //플레이어와 카메라 사이 오브젝트
 
+    public static bool rotateRight;
+    public static bool rotateLeft;
+    float rotateAmount;
+
+
+
     void Start()
     {
         playerTr = GameObject.FindWithTag("Player").GetComponent<Transform>(); //플레이어의 위치를 받아올 트랜스폼 담아둠
@@ -60,6 +66,63 @@ public class CameraTest : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if(rotateLeft)
+        {
+            
+        }
+        else if(rotateRight)
+        {
+
+        }
+        else
+        {
+
+        }
+
+
+
+
+        if (rotateLeft)
+        {
+            rotateAmount += 0.02f;
+            Mathf.Clamp(rotateAmount, -1, 1);
+
+        }
+        else if(rotateRight)
+        {
+            rotateAmount -= 0.02f;
+            Mathf.Clamp(rotateAmount, -1, 1);
+        }
+        else
+        {
+            if(rotateAmount<-0.1f)
+            {
+
+            }
+            else if(rotateAmount >0.1f)
+            {
+
+            }
+            else
+            {
+                rotateAmount = 0;
+            }
+        }
+
+
+        float toCompare = Input.GetAxis("Mouse ScrollWheel");
+        if(toCompare<0)
+        {
+            originDistance = originDistance - transform.forward;
+        }
+        else if (toCompare > 0)
+        {
+            originDistance = originDistance + transform.forward;
+        }
+
+
         transform.position = playerTr.position + originDistance;
+
+
     }
 }
