@@ -161,7 +161,8 @@ public class JoystickMove : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
                 isAttack = true;
 
                 //마법이 나타날 지점
-                Vector3 pos = PlayerInfo.clickTarget.transform.position;
+                Vector3 posUp = new Vector3(0.0f, 2.0f, 0.0f); //좀 위로 옮기려고 넣어봄
+                Vector3 pos = PlayerInfo.clickTarget.transform.position + posUp;
 
                 //마법이펙트 오브젝트를 생성 
                 //Instantiate:게임오브젝트의 클론을 생성 (복제할 오브젝트, 오브젝트 위치, 회전값)
@@ -184,7 +185,8 @@ public class JoystickMove : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
                 isAttack = true;
 
                 //마법이 나타날 지점
-                Vector3 pos = PlayerInfo.clickTarget.transform.position;
+                Vector3 posUp = new Vector3(0.0f, 2.0f, 0.0f); //좀 위로 옮기려고 넣어봄
+                Vector3 pos = PlayerInfo.clickTarget.transform.position + posUp;
 
                 //마법이펙트 오브젝트를 생성 
                 //Instantiate:게임오브젝트의 클론을 생성 (복제할 오브젝트, 오브젝트 위치, 회전값)

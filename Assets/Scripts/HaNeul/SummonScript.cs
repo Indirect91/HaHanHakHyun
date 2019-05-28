@@ -72,8 +72,6 @@ public class SummonScript : MonoBehaviour
             //무엇이 소환될지 결정되었다면
             if (isCheckSummon == true)
             {
-                Debug.Log("올라와라아아아~");
-
                 //특정높이보다 낮으면 올라오게 만들기
                 if (showSummons.transform.position.y < 7.0f)
                 {
@@ -99,11 +97,26 @@ public class SummonScript : MonoBehaviour
     //소환 Yes
     public void OnSummonYes()
     {
-        //소환 선택지 UI비활성화
-        SummonsGroup.SetActive(false);
+        Debug.Log("소환 전: " + PlayerInfo.ItemListCount());
 
-        OnSummoning();
-        isSummoning = true;
+        int invenSize = PlayerInfo.ItemListCount();
+
+        if (PlayerInfo.ItemListCount() >= 10)
+        {
+            //소환선택지 UI비활성화
+            SummonsGroup.SetActive(false);
+            //조이스틱 활성화
+            Joystic.SetActive(true);
+        }
+        //인벤토리 창에 가득차지 않으면 소환가능
+        else if (PlayerInfo.ItemListCount() < 10)
+        {
+            //소환 선택지 UI비활성화
+            SummonsGroup.SetActive(false);
+
+            OnSummoning();
+            isSummoning = true;
+        }
     }
 
     //소환 No
@@ -130,6 +143,8 @@ public class SummonScript : MonoBehaviour
     {
         int randNum = Random.Range(1, 100);
         int itemQ = 0;
+
+        randNum = 5;
 
         if (randNum >= 1 && randNum <= 15)
         {
@@ -256,18 +271,23 @@ public class SummonScript : MonoBehaviour
             }
         }
 
+        GameObject effectObj;
         if (itemQ == 1)
         {
-            Instantiate(magicShowRed, new Vector3(45.0f, 5.0f, -3.8f), Quaternion.Euler(0.0f, 0.0f, 0.0f));
+            effectObj = Instantiate(magicShowRed, new Vector3(45.0f, 5.0f, -3.8f), Quaternion.Euler(0.0f, 0.0f, 0.0f));
+
+            Destroy(effectObj, 9.0f);
         }
         else if (itemQ == 2)
         {
-            Instantiate(magicShowGreen, new Vector3(45.0f, 5.0f, -3.8f), Quaternion.Euler(0.0f, 0.0f, 0.0f));
+            effectObj = Instantiate(magicShowGreen, new Vector3(45.0f, 5.0f, -3.8f), Quaternion.Euler(0.0f, 0.0f, 0.0f));
         }
         else if (itemQ == 3)
         {
-            Instantiate(magicShowPurple, new Vector3(45.0f, 5.0f, -3.8f), Quaternion.Euler(0.0f, 0.0f, 0.0f));
+            effectObj = Instantiate(magicShowPurple, new Vector3(45.0f, 5.0f, -3.8f), Quaternion.Euler(0.0f, 0.0f, 0.0f));
         }
+
+        Debug.Log("소환: " + PlayerInfo.ItemListCount());
 
         //소환물이 뭐가 나올지 결정됨
         isCheckSummon = true;

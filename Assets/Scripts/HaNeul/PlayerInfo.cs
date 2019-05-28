@@ -36,13 +36,21 @@ public class PlayerInfo : MonoBehaviour
     }
 
     //플레이어가 소환 후 저장할 소모품 정보
-    List<TagItemInfo> itemList = new List<TagItemInfo>();
+    static List<TagItemInfo> itemList = new List<TagItemInfo>();
 
+    //소지하고있는 아이템 개수 확인용
+    public static int ItemListCount() { return itemList.Count; }
+
+    //소환시 나타난 아이템 저장용
     public static void SaveItemList(string itemName, float itemValue, ItemType itemType)
     {
         TagItemInfo itemInfo;
-        itemInfo.Name = itemName;
-        itemInfo.Value = itemValue;
-        itemInfo.itemType = itemType;
+
+        itemInfo.Name = itemName; //이름
+        itemInfo.Value = itemValue; //값
+        itemInfo.itemType = itemType; //타입(음식인지, 열쇠인지)
+
+        //아이템 리스트에 담는다
+        itemList.Add(itemInfo);
     }
 }
