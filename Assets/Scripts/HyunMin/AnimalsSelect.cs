@@ -6,16 +6,18 @@ using UnityEngine.UI;
 public class AnimalsSelect : MonoBehaviour
 {
     private GameObject animalsInfo;
+    private Image image;
+    private readonly Color initColor = new Vector4(0.6f, 0.0f, 0.0f, 0.0f);
 
-    // Start is called before the first frame update
     void Start()
     {
         animalsInfo = GameObject.FindGameObjectWithTag("animalsInfo");
+        image = GetComponent<Image>();
+        image.color = initColor;
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnMouseDown()
     {
-
+        image.color = new Vector4(1.0f, 1f, 1f, 1f);
     }
 }
