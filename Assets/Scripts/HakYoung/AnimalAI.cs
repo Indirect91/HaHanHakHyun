@@ -18,10 +18,20 @@ public class AnimalAI : MonoBehaviour
         Attack,
         Die
     }
+
+    //동물의 타입구분.
+    public enum AnimalType
+    {
+        Natural,        //기본상태
+        Player          //플레이어 귀속상태.
+    }
+
     //상태를 저장할 변수들.
     public AnimalState state;
     public Eating eating;
-    
+    public AnimalType type;
+
+
     //플레이어와 동물들의 위치를 저장할 변수.
     private Transform playerTr;
     private Transform animalTr;
@@ -29,8 +39,12 @@ public class AnimalAI : MonoBehaviour
     //Animator 를 사용하기 위한 변수
     private Animator animator;
 
+    //동물 공격 스크럽트를 불러오기 위한 변수.
+    private AnimalAttack animalAttack;
+
+
     //공격과 추적의 사정거리.
-    public float attackDist = 1.0f;
+    public float attackDist = 4.0f;
     public float traceDist = 10.0f;
 
     //죽었냐? 살았냐?
@@ -65,6 +79,9 @@ public class AnimalAI : MonoBehaviour
         //moveAgent 컴포넌트 가져오기
         moveAgent = GetComponent<AnimalMoveAgent>();
 
+        //AnimalAttack 스트럭트 가져오기.
+        animalAttack = GetComponent<AnimalAttack>();
+
         //코루틴의 지연시간을 생성.  0.3초마다 번갈아가면서 실행시키려고 하는건가?
         ws = new WaitForSeconds(0.3f);
     }
@@ -90,15 +107,16 @@ public class AnimalAI : MonoBehaviour
                 yield break;
 
             //플레이어랑 동물이랑 거리를 계산. Vector3.Distance보다 sqrMagnitude 로하게되면 훨씬 빠르다고 함.
-            float distance = (playerTr.position - animalTr.position).sqrMagnitude;
+            //float distance = (playerTr.position - animalTr.position).sqrMagnitude;
+            float distance = Vector3.Distance(playerTr.position, animalTr.position);
 
             //공격반경안에 들어오면 상태를 공격으로 바꾸고
-            if (distance <= attackDist * attackDist)
+            if (distance <= attackDist)
             {
                 state = AnimalState.Attack;
             }
             // 추적반경안에 들어오면 상태를 추적으로 바꾸고,
-            else if (distance <= traceDist * traceDist)
+            else if (distance <= traceDist)
             {
                 state = AnimalState.Trace;
             }
@@ -121,6 +139,7 @@ public class AnimalAI : MonoBehaviour
             {
                 case AnimalState.Patrol:
                     //순찰모드를 활성화.
+                    animalAttack.isAttack = false;
                     moveAgent.patrolling = true;
                     animator.SetBool(hashMove, true);
                     break;
@@ -133,9 +152,15 @@ public class AnimalAI : MonoBehaviour
                     //순찰 및 추적을 멈춘다.
                     moveAgent.Stop();
                     animator.SetBool(hashMove, false);
+
+                    if(animalAttack.isAttack == false)
+                    {
+                        animalAttack.isAttack = true;
+                    }
                     break;
                 case AnimalState.Die:
                     //순찰 및 추적을 멈춘다.
+                    animalAttack.isAttack = false;
                     moveAgent.Stop();
                     break;
             }
