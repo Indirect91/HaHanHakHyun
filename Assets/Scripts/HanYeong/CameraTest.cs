@@ -5,13 +5,15 @@ using UnityEngine;
 public class CameraTest : MonoBehaviour
 {
     public Transform playerTr; //플레이어 트랜스폼
+    static public GameObject showTogether; //줌인할 대상
 
     Vector3 originDistance; //초기 거리 저장
     GameObject hitObstacle = null; //플레이어와 카메라 사이 오브젝트
 
-    public static bool rotateRight;
-    public static bool rotateLeft;
-    float rotateAmount;
+    public static bool rotateRight = false;
+    public static bool rotateLeft = false;
+    float rotateRightAmount =0;
+    float rotateLeftAmount = 0;
 
 
 
@@ -66,63 +68,50 @@ public class CameraTest : MonoBehaviour
 
     private void FixedUpdate()
     {
+        transform.LookAt(playerTr);
+
+        rotateLeft = false;
+        rotateRight = false;
+
+        if (Input.GetKey(KeyCode.O))
+        {
+            rotateLeft = true;
+        }
+        else if(Input.GetKey(KeyCode.P))
+        {
+            rotateRight = true;
+        }
+
+
         if(rotateLeft)
         {
-            
-        }
-        else if(rotateRight)
-        {
-
-        }
-        else
-        {
-
-        }
-
-
-
-
-        if (rotateLeft)
-        {
-            rotateAmount += 0.02f;
-            Mathf.Clamp(rotateAmount, -1, 1);
+            transform.RotateAround(playerTr.transform.position, Vector3.up, 20 * Time.deltaTime);
+            originDistance = this.transform.position - playerTr.position; //첫 거리 계산해서 저장
+           // transform.Translate(Vector3.left *3* Time.deltaTime);
+           // originDistance = this.transform.position - playerTr.position; //첫 거리 계산해서 저장
 
         }
         else if(rotateRight)
         {
-            rotateAmount -= 0.02f;
-            Mathf.Clamp(rotateAmount, -1, 1);
+            transform.RotateAround(playerTr.transform.position, Vector3.up, -20 * Time.deltaTime);
+            originDistance = this.transform.position - playerTr.position; //첫 거리 계산해서 저장
+            //transform.Translate(Vector3.right *3* Time.deltaTime);
+            //originDistance = this.transform.position - playerTr.position; //첫 거리 계산해서 저장
         }
         else
         {
-            if(rotateAmount<-0.1f)
+            float toCompare = Input.GetAxis("Mouse ScrollWheel");
+            if (toCompare < 0)
             {
-
+                originDistance = originDistance - transform.forward;
             }
-            else if(rotateAmount >0.1f)
+            else if (toCompare > 0)
             {
-
+                originDistance = originDistance + transform.forward;
             }
-            else
-            {
-                rotateAmount = 0;
-            }
+
+
+            transform.position = playerTr.position + originDistance;
         }
-
-
-        float toCompare = Input.GetAxis("Mouse ScrollWheel");
-        if(toCompare<0)
-        {
-            originDistance = originDistance - transform.forward;
-        }
-        else if (toCompare > 0)
-        {
-            originDistance = originDistance + transform.forward;
-        }
-
-
-        transform.position = playerTr.position + originDistance;
-
-
     }
 }
