@@ -10,6 +10,7 @@ public class SummonScript : MonoBehaviour
 
     //마법 이펙트
     [SerializeField] GameObject magicTonado; //45, 7, -3.8
+    [SerializeField] GameObject magicShowRed; //45, 5, -3.8
 
     /*아이템*/
     //음식

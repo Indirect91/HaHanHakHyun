@@ -9,10 +9,9 @@ public class PlayerInfo : MonoBehaviour
     public static GameObject clickTarget = null;
 
     //플레이어 정보
-    float playerHp = 25.0f;
-    float playerAtt1 = 4.0f; //스타볼
-    float playerAtt2 = 8.0f; //썬더볼
-    float playerDef = 4.0f;
+    public static float playerHp = 25.0f;
+    public static float playerAtt1 = 4.0f;
+    public static float playerDef = 4.0f;
 
     //아이템 타입
     public enum ItemType
