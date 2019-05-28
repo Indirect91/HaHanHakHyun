@@ -17,11 +17,6 @@ public class PlayerAct : MonoBehaviour
         rigid = GetComponent<Rigidbody>();
     }
 
-    private void FixedUpdate()
-    {
-
-    }
-
     private void OnTriggerStay(Collider coll)
     {
         //물에 부딫히면 행동이 수영하는 모션으로 바꿈

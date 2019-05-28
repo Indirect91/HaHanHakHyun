@@ -16,10 +16,10 @@ public class PlayerInfo : MonoBehaviour
     //아이템 타입
     public enum ItemType
     {
-        food,
-        key,
-        gem,
-        pet
+        Food,
+        Key,
+        Gem,
+        Cat
     }
 
     //아이템 정보
@@ -40,7 +40,5 @@ public class PlayerInfo : MonoBehaviour
         itemInfo.Name = itemName;
         itemInfo.Value = itemValue;
         itemInfo.itemType = itemType;
-
-        
     }
 }
