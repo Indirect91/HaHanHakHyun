@@ -11,6 +11,11 @@ public class SummonScript : MonoBehaviour
     //마법 이펙트
     [SerializeField] GameObject magicTonado; //45, 7, -3.8
 
+    //소환중인가?
+    bool isSummoning = false;
+    //시간초
+    int count = 0;
+
     void Update()
     {
         //플레이어가 소환하는 곳을 보고있을때
@@ -25,6 +30,19 @@ public class SummonScript : MonoBehaviour
                 Joystic.SetActive(false);
             }
         }
+
+        if (isSummoning == true)
+        {
+            count++;
+
+            if(count % 360 == 0)
+            {
+                //조이스틱 활성화
+                Joystic.SetActive(true);
+
+            }
+        }
+
     }
 
     //소환 Yes
@@ -36,9 +54,7 @@ public class SummonScript : MonoBehaviour
         SummonsGroup.SetActive(false);
 
         OnSummoning();
-
-        //임시, 조이스틱 활성화
-        Joystic.SetActive(true);
+        isSummoning = true;
     }
 
     //소환 No
@@ -54,9 +70,6 @@ public class SummonScript : MonoBehaviour
     public void OnSummoning()
     {
         //소환이펙트 토네이도 생성
-        GameObject tonado = Instantiate(magicTonado, new Vector3(45.0f, 7.0f, -3.8f), Quaternion.Euler(-90.0f, 0.0f, 0.0f));
-
-        //6초뒤에 파괴
-        Destroy(tonado, 6.0f);
+       Instantiate(magicTonado, new Vector3(45.0f, 7.0f, -3.8f), Quaternion.Euler(-90.0f, 0.0f, 0.0f));
     }
 }

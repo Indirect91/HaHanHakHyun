@@ -74,6 +74,8 @@ public class JoystickMove : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
     //드래그
     public void OnDrag(PointerEventData eventData)
     {
+        Debug.Log("조이스틱 드래그");
+
         //마우스 현재 좌표 - 조이스틱 배경의 넓이
         value = eventData.position - (Vector2)rect_background.position;
 
@@ -102,6 +104,8 @@ public class JoystickMove : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
     //손가락 눌렀을때
     public void OnPointerDown(PointerEventData eventData)
     {
+        Debug.Log("조이스틱 터치");
+
         isTouch = true;
 
         isMove = true;
@@ -154,6 +158,8 @@ public class JoystickMove : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
     //스타볼 나타나게 하는 마법 공격버튼
     public void OnAttackButton_StarBall()
     {
+        Debug.Log("스타볼 공격");
+
         if (!playerAnim.GetCurrentAnimatorStateInfo(0).IsName("Attack01"))
         {
             if (PlayerInfo.clickTarget != null && PlayerAct.isSwim == false)
@@ -177,6 +183,8 @@ public class JoystickMove : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
     //썬더볼 나타나게 하는 마법 공격버튼
     public void OnAttackButton_ThunderBall()
     {
+        Debug.Log("썬더볼 공격");
+
         if (!playerAnim.GetCurrentAnimatorStateInfo(0).IsName("Attack01"))
         {
             if (PlayerInfo.clickTarget != null && PlayerAct.isSwim == false)

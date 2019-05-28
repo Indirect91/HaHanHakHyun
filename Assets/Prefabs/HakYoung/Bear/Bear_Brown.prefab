@@ -745,6 +745,7 @@ GameObject:
   - component: {fileID: 89343063649661694}
   - component: {fileID: 3927584776680638475}
   - component: {fileID: 2223271110516597821}
+  - component: {fileID: 1997615211497609478}
   m_Layer: 20
   m_Name: Bear_Brown
   m_TagString: Bear
@@ -870,9 +871,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   state: 0
   eating: 0
-  attackDist: 1
-  traceDist: 10
+  type: 0
   isDie: 0
+--- !u!114 &1997615211497609478
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7339953571558034268}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab2b9683914b9454e837857ec3bb7b08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isAttack: 0
 --- !u!1 &7339988968199385588
 GameObject:
   m_ObjectHideFlags: 0
