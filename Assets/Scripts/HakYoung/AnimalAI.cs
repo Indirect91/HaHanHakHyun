@@ -115,22 +115,30 @@ public class AnimalAI : MonoBehaviour
     private void OnEnable()
     {
         //CheckState 함수 실행
-        StartCoroutine(CheckState());
+       // StartCoroutine(CheckState());
+       //
+       // //Action함수 실행
+       // StartCoroutine(Action());
 
-        //Action함수 실행
-        StartCoroutine(Action());
+
     }
 
-    IEnumerator CheckState()
+
+
+
+   
+
+
+
+    void CheckState()
     {
 
         //안죽었다면 실행해라.
-        while(!isDie)
+        if(!isDie)
         {
             //실수로라도 죽었는데 들어왔다?
             if (state == AnimalState.Die)
                 //나가라.
-                yield break;
 
             if (animalType == AnimalType.Natural)
             {
@@ -156,33 +164,38 @@ public class AnimalAI : MonoBehaviour
             else if(animalType == AnimalType.Player)
             {
                 float distance = Vector3.Distance(playerTr.position, animalTr.position);
-                float attackDistance = Vector3.Distance(PlayerInfo.clickTarget.GetComponent<Transform>().position, animalTr.position);
 
-                if (attackDistance >= 3)
-                {
-                    state = AnimalState.Attack;
-                }
-                if (PlayerInfo.clickTarget != null)
-                {
-                    state = AnimalState.Trace;
-                }
-                else if (state == AnimalState.Patrol && distance <= 3)
+                if (PlayerInfo.clickTarget == null && distance < 10)
                 {
                     state = AnimalState.Idle;
+
                 }
-                else
+                else if (PlayerInfo.clickTarget == null && distance >= 10)
+                {
+
                     state = AnimalState.Patrol;
+                }
+                else if(PlayerInfo.clickTarget!=null && Vector3.Distance(PlayerInfo.clickTarget.GetComponent<Transform>().position, animalTr.position) > 10)
+                {
+
+                    state = AnimalState.Trace;
+                }
+                else if(PlayerInfo.clickTarget != null && Vector3.Distance(PlayerInfo.clickTarget.GetComponent<Transform>().position, animalTr.position) <= 10)
+                {
+
+                    state = AnimalState.Attack;
+                }
+
             }
-            yield return ws;
         }
     }
 
-    IEnumerator Action()
+    void Action()
     {
-        while(!isDie)
+        if(!isDie)
         {
             //지정한 ws시간만큼 대기하고
-            yield return ws;
+
 
             if (animalType == AnimalType.Natural)
             {
@@ -221,22 +234,26 @@ public class AnimalAI : MonoBehaviour
             {
 
                 float distance = Vector3.Distance(playerTr.position, animalTr.position);
-
-                switch (state)
+                Debug.Log((int)state);
+                switch (this.state)
                 {
+                    
                     case AnimalState.Patrol:
+                        animalTr.LookAt(playerTr.position);
                         animator.SetBool(hashMove, true);
                         //lerf, 
-                        animalTr.position += Vector3.Lerp(playerTr.position, animalTr.position, 5 * Time.deltaTime);
+                        animalTr.position = Vector3.Lerp(animalTr.position,playerTr.position, 0.01f);
                         break;
                     case AnimalState.Idle:
                         break;
                     case AnimalState.Trace:
+                        animalTr.LookAt(playerTr.position);
                         animator.SetBool(hashMove, true);
 
-                        animalTr.position += Vector3.Lerp(PlayerInfo.clickTarget.GetComponent<Transform>().position, animalTr.position, 7 * Time.deltaTime);
+                        animalTr.position = Vector3.Lerp(animalTr.position, PlayerInfo.clickTarget.GetComponent<Transform>().position, 0.01f);
                         break;
                     case AnimalState.Attack:
+                        animalTr.LookAt(playerTr.position);
                         animator.SetBool(hashMove, false);
 
                         if (animalAttack.isAttack == false)
@@ -257,10 +274,20 @@ public class AnimalAI : MonoBehaviour
 
 
 
-    void Update()
+    void FixedUpdate()
     {
         //Speed 파라미터에 이동속도를 전달.
         animator.SetFloat(hashSpeed, moveAgent.Speed);
+
+
+        CheckState();
+
+        //Action함수 실행
+        Action();
+
+
+
+
     }
 }
 

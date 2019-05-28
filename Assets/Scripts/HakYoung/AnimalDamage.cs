@@ -76,6 +76,7 @@ public class AnimalDamage : MonoBehaviour
                 AnimalAI ai = GetComponent<AnimalAI>();
                 ai.SetAnimalType(AnimalAI.AnimalType.Player);
                 PlayerInfo.clickTarget.SetLayer(21);
+                PlayerInfo.clickTarget.transform.Find("Mark Canvas").gameObject.SetActive(false);
                 PlayerInfo.clickTarget = null;
 
             }

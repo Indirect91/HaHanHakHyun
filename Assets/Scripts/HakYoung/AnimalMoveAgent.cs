@@ -15,6 +15,7 @@ public class AnimalMoveAgent : MonoBehaviour
     //컴포넌트 저장 변수.
     private NavMeshAgent agent;
 
+
     //순찰상태나 추적상태일경우의 속도차이를 주기위한 변수.
     //readonly 를 사용하게 되면 읽기전용으로 바뀌어 뒤에서 값을 변경 할 수가 없다.
     private readonly float patrolSpeed = 1.0f;
@@ -25,6 +26,9 @@ public class AnimalMoveAgent : MonoBehaviour
 
     //동물 캐릭터의 Transfrom 컴포넌트를 저장할 변수.
     private Transform animalTr;
+
+    //플래이어 캐릭터의 트랜스폼 컴포넌트를 저장할 변수.
+    private Transform playerTr;
 
     //순찰상태인지 아닌지를 판단하기 위한 변수.
     private bool isPatrolling;
@@ -72,12 +76,16 @@ public class AnimalMoveAgent : MonoBehaviour
         //동물 Transfrom 컴포넌트 추출 후 변수에 저장.
         animalTr = GetComponent<Transform>();
 
+        //플레이어 트랜스폼 컴포넌트를 추출 후  변수에 저장.
+        playerTr = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
+
         //NavMeshAgent 컴포넌트를 추출후 변수에 저장.
         agent = GetComponent<NavMeshAgent>();
         // 목적지에 가까워질수록 속도를 줄이는 옵션을 비활성화.
         agent.autoBraking = false;
         //처음에 기본속도는 순찰상태의 속도로 시작.
         agent.speed = patrolSpeed;
+
 
         //자동회전을 막는다.
         agent.updateRotation = false;
@@ -137,25 +145,31 @@ public class AnimalMoveAgent : MonoBehaviour
 
     void Update()
     {
-        //적 캐릭터가 이동중일 때만 회전한다.
-        if (agent.isStopped == false)
+
+        //상태 겟셋을 알기 위해서 넣은 에너미 변수
+        AnimalAI ai = GetComponent<AnimalAI>();
+        if (ai.GetAnimalType() == AnimalAI.AnimalType.Natural)
         {
-            //NavMeshAgent가 가야할 방향 백터를 쿼터니언 각도로 변환
-            Quaternion rot = Quaternion.LookRotation(agent.desiredVelocity);
+            //적 캐릭터가 이동중일 때만 회전한다.
+            if (agent.isStopped == false)
+            {
+                //NavMeshAgent가 가야할 방향 백터를 쿼터니언 각도로 변환
+                Quaternion rot = Quaternion.LookRotation(agent.desiredVelocity);
 
-            //보간함수를 사용하여 점진적을 회전시킵니다.
-            animalTr.rotation = Quaternion.Slerp(animalTr.rotation
-                , rot, Time.deltaTime * damping);
-        }
+                //보간함수를 사용하여 점진적을 회전시킵니다.
+                animalTr.rotation = Quaternion.Slerp(animalTr.rotation
+                    , rot, Time.deltaTime * damping);
+            }
 
-        //순찰상태가 아니라면 바로 빠져나와라.
-        if (!isPatrolling) return;
+            //순찰상태가 아니라면 바로 빠져나와라.
+            if (!isPatrolling) return;
 
-        //NavMeshAgent가 이동하고 있고 목적지에 도착했는지 여부를 계산.
-        if(agent.velocity.sqrMagnitude >= 0.2f * 0.2f && agent.remainingDistance <= 0.5f)
-        {
-            nextIdx = Random.Range(0, wayPoint.Count);
-            MoveWayPoint();
+            //NavMeshAgent가 이동하고 있고 목적지에 도착했는지 여부를 계산.
+            if (agent.velocity.sqrMagnitude >= 0.2f * 0.2f && agent.remainingDistance <= 0.5f)
+            {
+                nextIdx = Random.Range(0, wayPoint.Count);
+                MoveWayPoint();
+            }
         }
     }
 }
