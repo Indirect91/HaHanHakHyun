@@ -17,8 +17,8 @@ public class AnimalMoveAgent : MonoBehaviour
 
     //순찰상태나 추적상태일경우의 속도차이를 주기위한 변수.
     //readonly 를 사용하게 되면 읽기전용으로 바뀌어 뒤에서 값을 변경 할 수가 없다.
-    private readonly float patrolSpeed = 1.5f;
-    private readonly float traceSpeed = 4.0f;
+    private readonly float patrolSpeed = 1.0f;
+    private readonly float traceSpeed = 5.0f;
 
     //회전할 때의 속도를 조절하는 계수
     private float damping = 1.0f;
