@@ -11,6 +11,8 @@ public class SummonScript : MonoBehaviour
     //마법 이펙트
     [SerializeField] GameObject magicTonado; //45, 7, -3.8
     [SerializeField] GameObject magicShowRed; //45, 5, -3.8
+    [SerializeField] GameObject magicShowGreen; //45, 5, -3.8
+    [SerializeField] GameObject magicShowPurple; //45, 5, -3.8
 
     /*아이템*/
     //음식
@@ -29,6 +31,7 @@ public class SummonScript : MonoBehaviour
     [SerializeField] GameObject cat3;
     [SerializeField] GameObject cat4;
 
+    //선택된 소환물
     GameObject showSummons;
 
     //소환중인가?
@@ -40,7 +43,7 @@ public class SummonScript : MonoBehaviour
     void Update()
     {
         //플레이어가 소환하는 곳을 보고있을때
-        if (PlayerFront.isSummons == true)
+        if (PlayerFront.isSummons == true && isSummoning == false)
         {
             //E키를 누르면 선택지 보이기
             if (Input.GetKeyDown(KeyCode.E))
@@ -78,8 +81,14 @@ public class SummonScript : MonoBehaviour
                 }
             }
 
-            if(count % 480 == 0)
+            if (count % 580 == 0)
             {
+                Destroy(showSummons);
+
+                isSummoning = false;
+                isCheckSummon = false;
+                count = 0;
+
                 //조이스틱 활성화
                 Joystic.SetActive(true);
             }
@@ -120,72 +129,144 @@ public class SummonScript : MonoBehaviour
     public void OnShowSummon()
     {
         int randNum = Random.Range(1, 100);
+        int itemQ = 0;
 
         if (randNum >= 1 && randNum <= 15)
         {
             //사과 소환
-            Instantiate(magicShowRed, new Vector3(45.0f, 5.0f, -3.8f), Quaternion.Euler(0.0f, 0.0f, 0.0f));
             showSummons = Instantiate(apple, new Vector3(45.0f, 0.0f, -3.8f), Quaternion.Euler(0.0f, 0.0f, 0.0f));
+            itemQ = 1;
+
+            PlayerInfo.SaveItemList("Apple", 7, PlayerInfo.ItemType.Food);
         }
         else if (randNum > 15 && randNum <= 30)
         {
             //바나나 소환
-            Instantiate(magicShowRed, new Vector3(45.0f, 5.0f, -3.8f), Quaternion.Euler(0.0f, 0.0f, 0.0f));
+            itemQ = 1;
             showSummons = Instantiate(banana, new Vector3(45.0f, 0.0f, -3.8f), Quaternion.Euler(0.0f, 0.0f, 0.0f));
+
+            PlayerInfo.SaveItemList("Banana", 7, PlayerInfo.ItemType.Food);
         }
         else if (randNum > 30 && randNum <= 36)
         {
             //음료캔 소환
-            Instantiate(magicShowRed, new Vector3(45.0f, 5.0f, -3.8f), Quaternion.Euler(0.0f, 0.0f, 0.0f));
+            itemQ = 2;
             showSummons = Instantiate(drinkCan, new Vector3(45.0f, 0.0f, -3.8f), Quaternion.Euler(0.0f, 0.0f, 0.0f));
+
+            PlayerInfo.SaveItemList("DrinkCan", 7, PlayerInfo.ItemType.Food);
         }
         else if (randNum > 36 && randNum <= 56)
         {
             //고기 소환
-            Instantiate(magicShowRed, new Vector3(45.0f, 5.0f, -3.8f), Quaternion.Euler(0.0f, 0.0f, 0.0f));
+            itemQ = 1;
             showSummons = Instantiate(roastMeat, new Vector3(45.0f, 0.0f, -3.8f), Quaternion.Euler(0.0f, 0.0f, 0.0f));
+
+            PlayerInfo.SaveItemList("RoastMeat", 7, PlayerInfo.ItemType.Food);
         }
         else if (randNum > 56 && randNum <= 66)
         {
             //열쇠 소환
-            Instantiate(magicShowRed, new Vector3(45.0f, 5.0f, -3.8f), Quaternion.Euler(0.0f, 0.0f, 0.0f));
+            itemQ = 2;
             showSummons = Instantiate(key, new Vector3(45.0f, 0.0f, -3.8f), Quaternion.Euler(0.0f, 0.0f, 0.0f));
+
+            PlayerInfo.SaveItemList("Key", 7, PlayerInfo.ItemType.Key);
         }
         else if (randNum > 66 && randNum <= 73)
         {
             //초록보석 소환
-            Instantiate(magicShowRed, new Vector3(45.0f, 5.0f, -3.8f), Quaternion.Euler(0.0f, 0.0f, 0.0f));
+            itemQ = 2;
             showSummons = Instantiate(greenGem, new Vector3(45.0f, 0.0f, -3.8f), Quaternion.Euler(0.0f, 0.0f, 0.0f));
         }
         else if (randNum > 73 && randNum <= 80)
         {
             //빨간보석 소환
-            Instantiate(magicShowRed, new Vector3(45.0f, 5.0f, -3.8f), Quaternion.Euler(0.0f, 0.0f, 0.0f));
+            itemQ = 2;
             showSummons = Instantiate(redGem, new Vector3(45.0f, 0.0f, -3.8f), Quaternion.Euler(0.0f, 0.0f, 0.0f));
         }
         else if (randNum > 80 && randNum <= 85)
         {
-            //고양이1 소환
-            Instantiate(magicShowRed, new Vector3(45.0f, 5.0f, -3.8f), Quaternion.Euler(0.0f, 0.0f, 0.0f));
-            showSummons = Instantiate(cat1, new Vector3(45.0f, 0.0f, -3.8f), Quaternion.Euler(0.0f, 0.0f, 0.0f));
+            if (PlayerInfo.isCat1 == false)
+            {
+                //고양이1 소환
+                itemQ = 3;
+                showSummons = Instantiate(cat1, new Vector3(45.0f, 0.0f, -3.8f), Quaternion.Euler(0.0f, -90.0f, 0.0f));
+                PlayerInfo.isCat1 = true;
+            }
+            else
+            {
+                //사과 소환
+                itemQ = 1;
+                showSummons = Instantiate(apple, new Vector3(45.0f, 0.0f, -3.8f), Quaternion.Euler(0.0f, 0.0f, 0.0f));
+
+                PlayerInfo.SaveItemList("Apple", 7, PlayerInfo.ItemType.Food);
+            }
         }
         else if (randNum > 85 && randNum <= 90)
         {
-            //고양이2 소환
-            Instantiate(magicShowRed, new Vector3(45.0f, 5.0f, -3.8f), Quaternion.Euler(0.0f, 0.0f, 0.0f));
-            showSummons = Instantiate(cat2, new Vector3(45.0f, 0.0f, -3.8f), Quaternion.Euler(0.0f, 0.0f, 0.0f));
+            if (PlayerInfo.isCat2 == false)
+            {
+                //고양이2 소환
+                itemQ = 3;
+                showSummons = Instantiate(cat2, new Vector3(45.0f, 0.0f, -3.8f), Quaternion.Euler(0.0f, 0.0f, 0.0f));
+                PlayerInfo.isCat2 = true;
+            }
+            else
+            {
+                //바나나 소환
+                itemQ = 1;
+                showSummons = Instantiate(banana, new Vector3(45.0f, 0.0f, -3.8f), Quaternion.Euler(0.0f, 0.0f, 0.0f));
+
+                PlayerInfo.SaveItemList("Banana", 7, PlayerInfo.ItemType.Food);
+            }
         }
         else if (randNum > 90 && randNum <= 95)
         {
-            //고양이3 소환
-            Instantiate(magicShowRed, new Vector3(45.0f, 5.0f, -3.8f), Quaternion.Euler(0.0f, 0.0f, 0.0f));
-            showSummons = Instantiate(cat3, new Vector3(45.0f, 0.0f, -3.8f), Quaternion.Euler(0.0f, 0.0f, 0.0f));
+            if (PlayerInfo.isCat3 == false)
+            {
+                //고양이3 소환
+                itemQ = 3;
+                showSummons = Instantiate(cat3, new Vector3(45.0f, 0.0f, -3.8f), Quaternion.Euler(0.0f, 0.0f, 0.0f));
+                PlayerInfo.isCat3 = true;
+            }
+            else
+            {
+                //사과 소환
+                itemQ = 1;
+                showSummons = Instantiate(apple, new Vector3(45.0f, 0.0f, -3.8f), Quaternion.Euler(0.0f, 0.0f, 0.0f));
+
+                PlayerInfo.SaveItemList("Apple", 7, PlayerInfo.ItemType.Food);
+            }
         }
         else if (randNum > 95 && randNum <= 100)
         {
-            //고양이4 소환
+            if (PlayerInfo.isCat4 == false)
+            {
+                //고양이4 소환
+                itemQ = 3;
+                showSummons = Instantiate(cat4, new Vector3(45.0f, 0.0f, -3.8f), Quaternion.Euler(0.0f, 0.0f, 0.0f));
+                PlayerInfo.isCat4 = true;
+            }
+            else
+            {
+                //바나나 소환
+                itemQ = 1;
+                showSummons = Instantiate(banana, new Vector3(45.0f, 0.0f, -3.8f), Quaternion.Euler(0.0f, 0.0f, 0.0f));
+
+                PlayerInfo.SaveItemList("Banana", 7, PlayerInfo.ItemType.Food);
+            }
+        }
+
+        if (itemQ == 1)
+        {
             Instantiate(magicShowRed, new Vector3(45.0f, 5.0f, -3.8f), Quaternion.Euler(0.0f, 0.0f, 0.0f));
-            showSummons = Instantiate(cat4, new Vector3(45.0f, 0.0f, -3.8f), Quaternion.Euler(0.0f, 0.0f, 0.0f));
+        }
+        else if (itemQ == 2)
+        {
+            Instantiate(magicShowGreen, new Vector3(45.0f, 5.0f, -3.8f), Quaternion.Euler(0.0f, 0.0f, 0.0f));
+        }
+        else if (itemQ == 3)
+        {
+            Instantiate(magicShowPurple, new Vector3(45.0f, 5.0f, -3.8f), Quaternion.Euler(0.0f, 0.0f, 0.0f));
         }
 
         //소환물이 뭐가 나올지 결정됨

@@ -576,6 +576,16 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 4060023603405454631, guid: e17352287855ae34181344a2f2919b3e,
         type: 3}
+    - target: {fileID: 1608176434, guid: 6aa387f7d99ebde40b1c3dbd3cd686dc, type: 3}
+      propertyPath: magicShowGreen
+      value: 
+      objectReference: {fileID: 5682320947272227498, guid: ad9b97d9939a1854380e76b91f25a0f4,
+        type: 3}
+    - target: {fileID: 1608176434, guid: 6aa387f7d99ebde40b1c3dbd3cd686dc, type: 3}
+      propertyPath: magicShowPurple
+      value: 
+      objectReference: {fileID: 5682320947272227498, guid: fae0245aa682d7f4d9652f629adbda16,
+        type: 3}
     - target: {fileID: 4337778911963485806, guid: 6aa387f7d99ebde40b1c3dbd3cd686dc,
         type: 3}
       propertyPath: m_IsActive

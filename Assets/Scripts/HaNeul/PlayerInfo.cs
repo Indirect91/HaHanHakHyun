@@ -13,13 +13,17 @@ public class PlayerInfo : MonoBehaviour
     public static float playerAtt1 = 4.0f;
     public static float playerDef = 4.0f;
 
+    //플레이어 고양이 소유 정보
+    public static bool isCat1 = false; //고양이1 얻었는가?
+    public static bool isCat2 = false; //고양이2 얻었는가?
+    public static bool isCat3 = false; //고양이3 얻었는가?
+    public static bool isCat4 = false; //고양이4 얻었는가?
+
     //아이템 타입
     public enum ItemType
     {
         Food,
-        Key,
-        Gem,
-        Cat
+        Key
     }
 
     //아이템 정보
@@ -34,7 +38,7 @@ public class PlayerInfo : MonoBehaviour
     //플레이어가 소환 후 저장할 소모품 정보
     List<TagItemInfo> itemList = new List<TagItemInfo>();
 
-    public void SaveFoodItemList(string itemName, float itemValue, ItemType itemType)
+    public static void SaveItemList(string itemName, float itemValue, ItemType itemType)
     {
         TagItemInfo itemInfo;
         itemInfo.Name = itemName;
