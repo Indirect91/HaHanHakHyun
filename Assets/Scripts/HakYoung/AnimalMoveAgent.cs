@@ -91,6 +91,8 @@ public class AnimalMoveAgent : MonoBehaviour
             group.GetComponentsInChildren<Transform>(wayPoint);
             //배열의 첫번쨰 항목을 지워라.
             wayPoint.RemoveAt(0);
+
+            nextIdx = Random.Range(0, wayPoint.Count);
         }
         MoveWayPoint();
     }
@@ -152,7 +154,7 @@ public class AnimalMoveAgent : MonoBehaviour
         //NavMeshAgent가 이동하고 있고 목적지에 도착했는지 여부를 계산.
         if(agent.velocity.sqrMagnitude >= 0.2f * 0.2f && agent.remainingDistance <= 0.5f)
         {
-            nextIdx = ++nextIdx % wayPoint.Count;
+            nextIdx = Random.Range(0, wayPoint.Count);
             MoveWayPoint();
         }
     }

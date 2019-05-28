@@ -28,7 +28,6 @@ public class HpBar : MonoBehaviour
         //최상위 캔버스 렉트트랜스폼 컴포넌트 추출
         rectParent = canvas.GetComponent<RectTransform>();
         rectHp = this.gameObject.GetComponent<RectTransform>();
-
     }
 
     // Update is called once per frame

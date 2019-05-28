@@ -12,6 +12,8 @@ TagManager:
   - Sommons
   - UIDrag
   - animalsInfo
+  - Environment
+  - RandomBox
   layers:
   - Default
   - TransparentFX
