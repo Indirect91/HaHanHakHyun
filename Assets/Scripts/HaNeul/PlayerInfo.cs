@@ -53,6 +53,4 @@ public class PlayerInfo : MonoBehaviour
         //아이템 리스트에 담는다
         itemList.Add(itemInfo);
     }
-
-    //
 }

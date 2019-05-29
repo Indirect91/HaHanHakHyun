@@ -17,7 +17,7 @@ public class InventorySlot : MonoBehaviour
         if (PlayerInfo.itemList.Count == 0)
         {
             icon.sprite = null;
-            Debug.Log("비어있음");
+            //Debug.Log("비어있음");
         }
         else
         {

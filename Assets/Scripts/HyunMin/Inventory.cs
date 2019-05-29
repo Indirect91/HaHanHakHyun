@@ -15,6 +15,11 @@ public class Inventory : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(invenCount == 0)
+        {
+            int a = 0;
+            itemSlot[a].AddItem();
+        }
         if(Input.GetKeyDown(KeyCode.B))
         {
             PlayerInfo.SaveItemList("Banana", 13, PlayerInfo.ItemType.Food);
@@ -25,10 +30,9 @@ public class Inventory : MonoBehaviour
             PlayerInfo.SaveItemList("Apple", 7, PlayerInfo.ItemType.Food);
             invenCount++;
         }
-        if(invenCount <= 20)
+        if(invenCount >0 && invenCount <= 20)
         { 
             itemSlot[invenCount - 1].AddItem();
-            
         }
     }
 }

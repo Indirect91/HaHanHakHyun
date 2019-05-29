@@ -34,6 +34,12 @@ public class SummonScript : MonoBehaviour
     //선택된 소환물
     GameObject showSummons;
 
+    //고양이
+    [SerializeField] GameObject cat01;
+    [SerializeField] GameObject cat02;
+    [SerializeField] GameObject cat03;
+    [SerializeField] GameObject cat04;
+
     //소환중인가?
     bool isSummoning = false; //소환중인가?
     bool isCheckSummon = false; //소환물이 소환 되었는가?
@@ -45,14 +51,22 @@ public class SummonScript : MonoBehaviour
         //플레이어가 소환하는 곳을 보고있을때
         if (PlayerFront.isSummons == true && isSummoning == false)
         {
+            //소환선택지 UI활성화
+            SummonsGroup.SetActive(true);
+
             //E키를 누르면 선택지 보이기
-            if (Input.GetKeyDown(KeyCode.E))
-            {
-                //소환선택지 UI활성화
-                SummonsGroup.SetActive(true);
-                //조이스틱 비활성화
-                Joystic.SetActive(false);
-            }
+            //if (Input.GetKeyDown(KeyCode.E))
+            //{
+            //    //소환선택지 UI활성화
+            //    SummonsGroup.SetActive(true);
+            //    //조이스틱 비활성화
+            //    Joystic.SetActive(false);
+            //}
+        }
+        else
+        {
+            //소환선택지 UI활성화
+            SummonsGroup.SetActive(false);
         }
 
         if (isSummoning == true)
@@ -101,6 +115,8 @@ public class SummonScript : MonoBehaviour
 
         int invenSize = PlayerInfo.ItemListCount();
 
+        Joystic.SetActive(false);
+
         if (PlayerInfo.ItemListCount() >= 20)
         {
             //소환선택지 UI비활성화
@@ -143,6 +159,8 @@ public class SummonScript : MonoBehaviour
     {
         int randNum = Random.Range(1, 100);
         int itemQ = 0;
+
+        randNum = 84;
 
         if (randNum >= 1 && randNum <= 15)
         {
@@ -204,6 +222,7 @@ public class SummonScript : MonoBehaviour
                 itemQ = 3;
                 showSummons = Instantiate(cat1, new Vector3(42.0f, 0.0f, -94.0f), Quaternion.Euler(0.0f, -90.0f, 0.0f));
                 PlayerInfo.isCat1 = true;
+                cat01.SetActive(true);
             }
             else
             {
@@ -222,6 +241,7 @@ public class SummonScript : MonoBehaviour
                 itemQ = 3;
                 showSummons = Instantiate(cat2, new Vector3(42.0f, 0.0f, -94.0f), Quaternion.Euler(0.0f, 0.0f, 0.0f));
                 PlayerInfo.isCat2 = true;
+                cat02.SetActive(true);
             }
             else
             {
@@ -240,6 +260,7 @@ public class SummonScript : MonoBehaviour
                 itemQ = 3;
                 showSummons = Instantiate(cat3, new Vector3(42.0f, 0.0f, -94.0f), Quaternion.Euler(0.0f, 0.0f, 0.0f));
                 PlayerInfo.isCat3 = true;
+                cat03.SetActive(true);
             }
             else
             {
@@ -258,6 +279,7 @@ public class SummonScript : MonoBehaviour
                 itemQ = 3;
                 showSummons = Instantiate(cat4, new Vector3(42.0f, 0.0f, -94.0f), Quaternion.Euler(0.0f, 0.0f, 0.0f));
                 PlayerInfo.isCat4 = true;
+                cat04.SetActive(true);
             }
             else
             {
