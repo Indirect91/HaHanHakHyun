@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class PlayerDamage : MonoBehaviour
 {
@@ -16,9 +17,22 @@ public class PlayerDamage : MonoBehaviour
     //readonly Color initColor = new Vector4(0, 1.0f, 0.0f, 0.8f);
     //Color currColor;
 
+    float speed = 10.0f;
+
+    //플레이어 상태
+    bool isDie = false;
+
+    /*컴포넌트*/
+    Animator playerAnim;
+    //[SerializeField] JoystickMove joystickMove;
+    [SerializeField] GameObject UICanvas;
+    [SerializeField] GameObject PlayerDieUI;
+
     // Start is called before the first frame update
     void Start()
     {
+        playerAnim = GetComponent<Animator>();
+
         //현재 hp 설정
         currHpBar = PlayerInfo.playerHp;
         currHp = PlayerInfo.playerHp;
@@ -31,19 +45,21 @@ public class PlayerDamage : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.D))
+        if (Input.GetKeyDown(KeyCode.D))
         {
-            currHp -= 5.0f;
-            Debug.Log(currHpBar);
+            currHp -= 4.0f;
         }
 
-        if (currHp > currHpBar) //Hp바 상승
+        if (currHp < currHpBar) //Hp바 감소
         {
-            currHpBar++;
+            currHpBar -= speed * Time.deltaTime;
         }
-        else if (currHp < currHpBar) //Hp바 감소
+
+        if (currHp < 0 && !isDie)
         {
-            currHpBar--;
+            Debug.Log("죽음");
+
+            Death();
         }
 
         //Hp바 변경
@@ -67,5 +83,20 @@ public class PlayerDamage : MonoBehaviour
         //hpBarImg.color = currColor;
         //크기변경
         hpBarImg.fillAmount = (currHpBar / MaxHp);
+    }
+
+    void Death()
+    {
+        isDie = true;
+
+        playerAnim.SetTrigger("Die");
+
+        UICanvas.SetActive(false);
+        PlayerDieUI.SetActive(true);
+    }
+
+    public void Restart()
+    {
+        SceneManager.LoadScene(0);
     }
 }

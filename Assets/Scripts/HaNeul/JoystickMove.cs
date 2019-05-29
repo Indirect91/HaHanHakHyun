@@ -26,7 +26,8 @@ public class JoystickMove : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
     public bool isMove = false; //움직이는 중인가?
     public bool isRun = false; //뛰는 중인가?
     public static bool isAttack = false; //공격하는 중인가?
-
+    public static bool isDie = false; //플레이어가 죽었는가?
+    
     Vector3 movement; //플레이어 움직임
     Vector3 rotate; //플레이어 회전
     Vector2 value; //플레이어 회전에 쓸 방향값을 다른 함수에서도 쓰려고 빼놓음
