@@ -27,7 +27,7 @@ public class PlayerInfo : MonoBehaviour
     }
 
     //아이템 정보
-    struct TagItemInfo
+    public struct TagItemInfo
     {
         public string Name;
         public float Value;
@@ -36,7 +36,7 @@ public class PlayerInfo : MonoBehaviour
     }
 
     //플레이어가 소환 후 저장할 소모품 정보
-    static List<TagItemInfo> itemList = new List<TagItemInfo>();
+    public static List<TagItemInfo> itemList = new List<TagItemInfo>();
 
     //소지하고있는 아이템 개수 확인용
     public static int ItemListCount() { return itemList.Count; }
@@ -53,4 +53,6 @@ public class PlayerInfo : MonoBehaviour
         //아이템 리스트에 담는다
         itemList.Add(itemInfo);
     }
+
+    //
 }
