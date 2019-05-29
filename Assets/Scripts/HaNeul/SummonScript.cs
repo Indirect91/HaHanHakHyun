@@ -160,7 +160,7 @@ public class SummonScript : MonoBehaviour
             itemQ = 1;
             showSummons = Instantiate(banana, new Vector3(45.0f, 0.0f, -3.8f), Quaternion.Euler(0.0f, 0.0f, 0.0f));
 
-            PlayerInfo.SaveItemList("Banana", 7, PlayerInfo.ItemType.Food);
+            PlayerInfo.SaveItemList("Banana", 10, PlayerInfo.ItemType.Food);
         }
         else if (randNum > 30 && randNum <= 36)
         {
@@ -168,7 +168,7 @@ public class SummonScript : MonoBehaviour
             itemQ = 2;
             showSummons = Instantiate(drinkCan, new Vector3(45.0f, 0.0f, -3.8f), Quaternion.Euler(0.0f, 0.0f, 0.0f));
 
-            PlayerInfo.SaveItemList("DrinkCan", 7, PlayerInfo.ItemType.Food);
+            PlayerInfo.SaveItemList("DrinkCan", 12, PlayerInfo.ItemType.Food);
         }
         else if (randNum > 36 && randNum <= 56)
         {
@@ -176,7 +176,7 @@ public class SummonScript : MonoBehaviour
             itemQ = 1;
             showSummons = Instantiate(roastMeat, new Vector3(45.0f, 0.0f, -3.8f), Quaternion.Euler(0.0f, 0.0f, 0.0f));
 
-            PlayerInfo.SaveItemList("RoastMeat", 7, PlayerInfo.ItemType.Food);
+            PlayerInfo.SaveItemList("RoastMeat", 10, PlayerInfo.ItemType.Food);
         }
         else if (randNum > 56 && randNum <= 66)
         {
@@ -184,7 +184,7 @@ public class SummonScript : MonoBehaviour
             itemQ = 2;
             showSummons = Instantiate(key, new Vector3(45.0f, 0.0f, -3.8f), Quaternion.Euler(0.0f, 0.0f, 0.0f));
 
-            PlayerInfo.SaveItemList("Key", 7, PlayerInfo.ItemType.Key);
+            PlayerInfo.SaveItemList("Key", 0, PlayerInfo.ItemType.Key);
         }
         else if (randNum > 66 && randNum <= 73)
         {
@@ -231,7 +231,7 @@ public class SummonScript : MonoBehaviour
                 itemQ = 1;
                 showSummons = Instantiate(banana, new Vector3(45.0f, 0.0f, -3.8f), Quaternion.Euler(0.0f, 0.0f, 0.0f));
 
-                PlayerInfo.SaveItemList("Banana", 7, PlayerInfo.ItemType.Food);
+                PlayerInfo.SaveItemList("Banana", 10, PlayerInfo.ItemType.Food);
             }
         }
         else if (randNum > 90 && randNum <= 95)
@@ -267,7 +267,7 @@ public class SummonScript : MonoBehaviour
                 itemQ = 1;
                 showSummons = Instantiate(banana, new Vector3(45.0f, 0.0f, -3.8f), Quaternion.Euler(0.0f, 0.0f, 0.0f));
 
-                PlayerInfo.SaveItemList("Banana", 7, PlayerInfo.ItemType.Food);
+                PlayerInfo.SaveItemList("Banana", 10, PlayerInfo.ItemType.Food);
             }
         }
 
