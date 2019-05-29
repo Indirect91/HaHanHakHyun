@@ -61,10 +61,6 @@ public class AnimalAI : MonoBehaviour
     //이동을 제어하는 MoveAgent 클래스를 저장할 변수,
     private AnimalMoveAgent moveAgent;
 
-    //코루틴에서 사용할 지연시간 변수라는데 공부하고 추가 주석을 달겠슴.
-    //이름만 보면 잠시만 기다리라는거같음.
-    private WaitForSeconds ws;
-
     //애니메이터 컨트롤러에 정의한 파라미터의 해시값을 미리 추출
     private readonly int hashMove = Animator.StringToHash("IsMove");
     private readonly int hashSpeed = Animator.StringToHash("Speed");
@@ -92,9 +88,6 @@ public class AnimalAI : MonoBehaviour
 
         //동물의 타입을 자연상태(야생)로 두고
         animalType = AnimalType.Natural;
-
-        //코루틴의 지연시간을 생성.  0.3초마다 번갈아가면서 실행시키려고 하는건가?
-        ws = new WaitForSeconds(0.3f);
     }
 
     private void Start()
@@ -110,43 +103,25 @@ public class AnimalAI : MonoBehaviour
                 child.GetComponent<SkinnedMeshRenderer>().material = material[randomMaterial];
             }
         }
-    }
 
-    private void OnEnable()
-    {
-        //CheckState 함수 실행
-       // StartCoroutine(CheckState());
-       //
-       // //Action함수 실행
-       // StartCoroutine(Action());
-
+        animator.SetBool("isPlayers", false);
 
     }
-
-
-
-
-   
-
-
-
     void CheckState()
     {
-
         //안죽었다면 실행해라.
         if(!isDie)
         {
-            //실수로라도 죽었는데 들어왔다?
-            if (state == AnimalState.Die)
-                //나가라.
-
             if (animalType == AnimalType.Natural)
             {
-
                 //플레이어랑 동물이랑 거리를 계산. Vector3.Distance보다 sqrMagnitude 로하게되면 훨씬 빠르다고 함.
                 //float distance = (playerTr.position - animalTr.position).sqrMagnitude;
                 float distance = Vector3.Distance(playerTr.position, animalTr.position);
 
+                    if (PlayerInfo.clickTarget == this.gameObject)
+                    {
+                        Debug.Log(distance);
+                    }
                 //공격반경안에 들어오면 상태를 공격으로 바꾸고
                 if (distance <= attackDist)
                 {
@@ -165,27 +140,25 @@ public class AnimalAI : MonoBehaviour
             {
                 float distance = Vector3.Distance(playerTr.position, animalTr.position);
 
-                if (PlayerInfo.clickTarget == null && distance < 10)
+                if (PlayerInfo.clickTarget == null && distance < 5)
                 {
                     state = AnimalState.Idle;
-
                 }
-                else if (PlayerInfo.clickTarget == null && distance >= 10)
+                else if (PlayerInfo.clickTarget == null && distance >= 3)
                 {
-
                     state = AnimalState.Patrol;
                 }
-                else if(PlayerInfo.clickTarget!=null && Vector3.Distance(PlayerInfo.clickTarget.GetComponent<Transform>().position, animalTr.position) > 10)
+                else if(PlayerInfo.clickTarget!=null && Vector3.Distance(PlayerInfo.clickTarget.GetComponent<Transform>().position, animalTr.position) > 3)
                 {
 
                     state = AnimalState.Trace;
                 }
-                else if(PlayerInfo.clickTarget != null && Vector3.Distance(PlayerInfo.clickTarget.GetComponent<Transform>().position, animalTr.position) <= 10)
+                else if(PlayerInfo.clickTarget != null && Vector3.Distance(PlayerInfo.clickTarget.GetComponent<Transform>().position, animalTr.position) <= 3)
                 {
 
                     state = AnimalState.Attack;
                 }
-
+                Debug.Log((int)state);
             }
         }
     }
@@ -194,9 +167,6 @@ public class AnimalAI : MonoBehaviour
     {
         if(!isDie)
         {
-            //지정한 ws시간만큼 대기하고
-
-
             if (animalType == AnimalType.Natural)
             {
                 switch (state)
@@ -234,26 +204,32 @@ public class AnimalAI : MonoBehaviour
             {
 
                 float distance = Vector3.Distance(playerTr.position, animalTr.position);
-                Debug.Log((int)state);
                 switch (this.state)
                 {
                     
                     case AnimalState.Patrol:
+                        animalAttack.isAttack = false;
                         animalTr.LookAt(playerTr.position);
                         animator.SetBool(hashMove, true);
-                        //lerf, 
                         animalTr.position = Vector3.Lerp(animalTr.position,playerTr.position, 0.01f);
+                        //animalTr.position = Vector3.MoveTowards(animalTr.position, playerTr.position, 2*Time.deltaTime);
                         break;
                     case AnimalState.Idle:
+                        animalAttack.isAttack = false;
+                        animalTr.LookAt(playerTr.position);
+                        animator.SetBool(hashMove, false);
+                        
                         break;
                     case AnimalState.Trace:
-                        animalTr.LookAt(playerTr.position);
+                        animalAttack.isAttack = false;
+                        animalTr.LookAt(PlayerInfo.clickTarget.GetComponent<Transform>().position);
                         animator.SetBool(hashMove, true);
 
                         animalTr.position = Vector3.Lerp(animalTr.position, PlayerInfo.clickTarget.GetComponent<Transform>().position, 0.01f);
                         break;
                     case AnimalState.Attack:
-                        animalTr.LookAt(playerTr.position);
+                        animalTr.LookAt(PlayerInfo.clickTarget.GetComponent<Transform>().position);
+
                         animator.SetBool(hashMove, false);
 
                         if (animalAttack.isAttack == false)
@@ -262,6 +238,7 @@ public class AnimalAI : MonoBehaviour
                         }
                         break;
                     case AnimalState.Die:
+                        animalAttack.isAttack = false;
                         animalAttack.isAttack = false;
                         break;
                 }

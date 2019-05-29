@@ -82,7 +82,7 @@ public class AnimalMoveAgent : MonoBehaviour
         //NavMeshAgent 컴포넌트를 추출후 변수에 저장.
         agent = GetComponent<NavMeshAgent>();
         // 목적지에 가까워질수록 속도를 줄이는 옵션을 비활성화.
-        agent.autoBraking = false;
+        agent.autoBraking = true;
         //처음에 기본속도는 순찰상태의 속도로 시작.
         agent.speed = patrolSpeed;
 

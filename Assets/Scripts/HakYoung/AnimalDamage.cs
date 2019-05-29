@@ -18,6 +18,8 @@ public class AnimalDamage : MonoBehaviour
     //부모가 될 Canvas 객체
     public Canvas uiCanvas;
 
+    Animator animator;
+
     //생명수치에 따라서 fillAmount 속성을 변경할 Image;
     private Image hpBarImage;
 
@@ -33,6 +35,9 @@ public class AnimalDamage : MonoBehaviour
     {
         //UI Canvas 불러오고
         uiCanvas = GameObject.Find("UICanvas").GetComponent<Canvas>();
+
+        //Animator 컴포넌트 가져오기
+        animator = GetComponent<Animator>();
 
         //캔버스 아래에다가 하위객체로 Hp바를 생성하고
         GameObject hpbar = Instantiate<GameObject>(hpBarPrefab, uiCanvas.transform);
@@ -74,6 +79,9 @@ public class AnimalDamage : MonoBehaviour
             if (true)
             {
                 AnimalAI ai = GetComponent<AnimalAI>();
+                this.GetComponent<AnimalMoveAgent>().Stop();
+                animator.SetBool("isPlayers", true);
+                
                 ai.SetAnimalType(AnimalAI.AnimalType.Player);
                 PlayerInfo.clickTarget.SetLayer(21);
                 PlayerInfo.clickTarget.transform.Find("Mark Canvas").gameObject.SetActive(false);
