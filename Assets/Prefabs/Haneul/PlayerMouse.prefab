@@ -76,6 +76,9 @@ GameObject:
   - component: {fileID: 943702335445056923}
   - component: {fileID: 4729383099598481427}
   - component: {fileID: 1818190593116485259}
+  - component: {fileID: 473514307}
+  - component: {fileID: 473514308}
+  - component: {fileID: 473514309}
   m_Layer: 0
   m_Name: PlayerMouse
   m_TagString: Player
@@ -157,11 +160,50 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 425931639303167356}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.1, y: 0.29999995, z: 0.7723058}
-  m_Center: {x: 0, y: 0.5, z: 0.4459438}
+  m_Size: {x: 0.1, y: 0.4, z: 1.3}
+  m_Center: {x: 0, y: 0.6, z: 0.7}
+--- !u!114 &473514307
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 425931639303167356}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc6c2f2d9c1af16499008295b8ed4fd8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &473514308
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 425931639303167356}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d1ed55cdd6a3cf499cb22366902f438, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &473514309
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 425931639303167356}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b98eb5cc64fd32469d4b926b318861a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hpBarImg: {fileID: 0}
+  UICanvas: {fileID: 0}
+  PlayerDieUI: {fileID: 0}
 --- !u!1 &429967332482900492
 GameObject:
   m_ObjectHideFlags: 0

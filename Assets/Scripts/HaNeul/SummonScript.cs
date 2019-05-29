@@ -101,7 +101,7 @@ public class SummonScript : MonoBehaviour
 
         int invenSize = PlayerInfo.ItemListCount();
 
-        if (PlayerInfo.ItemListCount() >= 10)
+        if (PlayerInfo.ItemListCount() >= 20)
         {
             //소환선택지 UI비활성화
             SummonsGroup.SetActive(false);
@@ -109,7 +109,7 @@ public class SummonScript : MonoBehaviour
             Joystic.SetActive(true);
         }
         //인벤토리 창에 가득차지 않으면 소환가능
-        else if (PlayerInfo.ItemListCount() < 10)
+        else if (PlayerInfo.ItemListCount() < 20)
         {
             //소환 선택지 UI비활성화
             SummonsGroup.SetActive(false);
@@ -132,7 +132,7 @@ public class SummonScript : MonoBehaviour
     public void OnSummoning()
     {
         //소환이펙트 토네이도 생성
-       GameObject tonado = Instantiate(magicTonado, new Vector3(45.0f, 7.0f, -3.8f), Quaternion.Euler(-90.0f, 0.0f, 0.0f));
+       GameObject tonado = Instantiate(magicTonado, new Vector3(42.0f, 7.0f, -94.0f), Quaternion.Euler(-90.0f, 0.0f, 0.0f));
 
         //이펙트는 지우기
         Destroy(tonado, 6.0f);
@@ -144,12 +144,10 @@ public class SummonScript : MonoBehaviour
         int randNum = Random.Range(1, 100);
         int itemQ = 0;
 
-        randNum = 5;
-
         if (randNum >= 1 && randNum <= 15)
         {
             //사과 소환
-            showSummons = Instantiate(apple, new Vector3(45.0f, 0.0f, -3.8f), Quaternion.Euler(0.0f, 0.0f, 0.0f));
+            showSummons = Instantiate(apple, new Vector3(42.0f, 0.0f, -94.0f), Quaternion.Euler(0.0f, 0.0f, 0.0f));
             itemQ = 1;
 
             PlayerInfo.SaveItemList("Apple", 7, PlayerInfo.ItemType.Food);
@@ -158,7 +156,7 @@ public class SummonScript : MonoBehaviour
         {
             //바나나 소환
             itemQ = 1;
-            showSummons = Instantiate(banana, new Vector3(45.0f, 0.0f, -3.8f), Quaternion.Euler(0.0f, 0.0f, 0.0f));
+            showSummons = Instantiate(banana, new Vector3(42.0f, 0.0f, -94.0f), Quaternion.Euler(0.0f, 0.0f, 0.0f));
 
             PlayerInfo.SaveItemList("Banana", 10, PlayerInfo.ItemType.Food);
         }
@@ -166,7 +164,7 @@ public class SummonScript : MonoBehaviour
         {
             //음료캔 소환
             itemQ = 2;
-            showSummons = Instantiate(drinkCan, new Vector3(45.0f, 0.0f, -3.8f), Quaternion.Euler(0.0f, 0.0f, 0.0f));
+            showSummons = Instantiate(drinkCan, new Vector3(42.0f, 0.0f, -94.0f), Quaternion.Euler(0.0f, 0.0f, 0.0f));
 
             PlayerInfo.SaveItemList("DrinkCan", 12, PlayerInfo.ItemType.Food);
         }
@@ -174,7 +172,7 @@ public class SummonScript : MonoBehaviour
         {
             //고기 소환
             itemQ = 1;
-            showSummons = Instantiate(roastMeat, new Vector3(45.0f, 0.0f, -3.8f), Quaternion.Euler(0.0f, 0.0f, 0.0f));
+            showSummons = Instantiate(roastMeat, new Vector3(42.0f, 0.0f, -94.0f), Quaternion.Euler(0.0f, 0.0f, 0.0f));
 
             PlayerInfo.SaveItemList("RoastMeat", 10, PlayerInfo.ItemType.Food);
         }
@@ -182,7 +180,7 @@ public class SummonScript : MonoBehaviour
         {
             //열쇠 소환
             itemQ = 2;
-            showSummons = Instantiate(key, new Vector3(45.0f, 0.0f, -3.8f), Quaternion.Euler(0.0f, 0.0f, 0.0f));
+            showSummons = Instantiate(key, new Vector3(42.0f, 0.0f, -94.0f), Quaternion.Euler(0.0f, 0.0f, 0.0f));
 
             PlayerInfo.SaveItemList("Key", 0, PlayerInfo.ItemType.Key);
         }
@@ -190,13 +188,13 @@ public class SummonScript : MonoBehaviour
         {
             //초록보석 소환
             itemQ = 2;
-            showSummons = Instantiate(greenGem, new Vector3(45.0f, 0.0f, -3.8f), Quaternion.Euler(0.0f, 0.0f, 0.0f));
+            showSummons = Instantiate(greenGem, new Vector3(42.0f, 0.0f, -94.0f), Quaternion.Euler(0.0f, 0.0f, 0.0f));
         }
         else if (randNum > 73 && randNum <= 80)
         {
             //빨간보석 소환
             itemQ = 2;
-            showSummons = Instantiate(redGem, new Vector3(45.0f, 0.0f, -3.8f), Quaternion.Euler(0.0f, 0.0f, 0.0f));
+            showSummons = Instantiate(redGem, new Vector3(42.0f, 0.0f, -94.0f), Quaternion.Euler(0.0f, 0.0f, 0.0f));
         }
         else if (randNum > 80 && randNum <= 85)
         {
@@ -204,14 +202,14 @@ public class SummonScript : MonoBehaviour
             {
                 //고양이1 소환
                 itemQ = 3;
-                showSummons = Instantiate(cat1, new Vector3(45.0f, 0.0f, -3.8f), Quaternion.Euler(0.0f, -90.0f, 0.0f));
+                showSummons = Instantiate(cat1, new Vector3(42.0f, 0.0f, -94.0f), Quaternion.Euler(0.0f, -90.0f, 0.0f));
                 PlayerInfo.isCat1 = true;
             }
             else
             {
                 //사과 소환
                 itemQ = 1;
-                showSummons = Instantiate(apple, new Vector3(45.0f, 0.0f, -3.8f), Quaternion.Euler(0.0f, 0.0f, 0.0f));
+                showSummons = Instantiate(apple, new Vector3(42.0f, 0.0f, -94.0f), Quaternion.Euler(0.0f, 0.0f, 0.0f));
 
                 PlayerInfo.SaveItemList("Apple", 7, PlayerInfo.ItemType.Food);
             }
@@ -222,14 +220,14 @@ public class SummonScript : MonoBehaviour
             {
                 //고양이2 소환
                 itemQ = 3;
-                showSummons = Instantiate(cat2, new Vector3(45.0f, 0.0f, -3.8f), Quaternion.Euler(0.0f, 0.0f, 0.0f));
+                showSummons = Instantiate(cat2, new Vector3(42.0f, 0.0f, -94.0f), Quaternion.Euler(0.0f, 0.0f, 0.0f));
                 PlayerInfo.isCat2 = true;
             }
             else
             {
                 //바나나 소환
                 itemQ = 1;
-                showSummons = Instantiate(banana, new Vector3(45.0f, 0.0f, -3.8f), Quaternion.Euler(0.0f, 0.0f, 0.0f));
+                showSummons = Instantiate(banana, new Vector3(42.0f, 0.0f, -94.0f), Quaternion.Euler(0.0f, 0.0f, 0.0f));
 
                 PlayerInfo.SaveItemList("Banana", 10, PlayerInfo.ItemType.Food);
             }
@@ -240,14 +238,14 @@ public class SummonScript : MonoBehaviour
             {
                 //고양이3 소환
                 itemQ = 3;
-                showSummons = Instantiate(cat3, new Vector3(45.0f, 0.0f, -3.8f), Quaternion.Euler(0.0f, 0.0f, 0.0f));
+                showSummons = Instantiate(cat3, new Vector3(42.0f, 0.0f, -94.0f), Quaternion.Euler(0.0f, 0.0f, 0.0f));
                 PlayerInfo.isCat3 = true;
             }
             else
             {
                 //사과 소환
                 itemQ = 1;
-                showSummons = Instantiate(apple, new Vector3(45.0f, 0.0f, -3.8f), Quaternion.Euler(0.0f, 0.0f, 0.0f));
+                showSummons = Instantiate(apple, new Vector3(42.0f, 0.0f, -94.0f), Quaternion.Euler(0.0f, 0.0f, 0.0f));
 
                 PlayerInfo.SaveItemList("Apple", 7, PlayerInfo.ItemType.Food);
             }
@@ -258,14 +256,14 @@ public class SummonScript : MonoBehaviour
             {
                 //고양이4 소환
                 itemQ = 3;
-                showSummons = Instantiate(cat4, new Vector3(45.0f, 0.0f, -3.8f), Quaternion.Euler(0.0f, 0.0f, 0.0f));
+                showSummons = Instantiate(cat4, new Vector3(42.0f, 0.0f, -94.0f), Quaternion.Euler(0.0f, 0.0f, 0.0f));
                 PlayerInfo.isCat4 = true;
             }
             else
             {
                 //바나나 소환
                 itemQ = 1;
-                showSummons = Instantiate(banana, new Vector3(45.0f, 0.0f, -3.8f), Quaternion.Euler(0.0f, 0.0f, 0.0f));
+                showSummons = Instantiate(banana, new Vector3(42.0f, 0.0f, -94.0f), Quaternion.Euler(0.0f, 0.0f, 0.0f));
 
                 PlayerInfo.SaveItemList("Banana", 10, PlayerInfo.ItemType.Food);
             }
@@ -274,17 +272,17 @@ public class SummonScript : MonoBehaviour
         GameObject effectObj;
         if (itemQ == 1)
         {
-            effectObj = Instantiate(magicShowRed, new Vector3(45.0f, 5.0f, -3.8f), Quaternion.Euler(0.0f, 0.0f, 0.0f));
+            effectObj = Instantiate(magicShowRed, new Vector3(42.0f, 5.0f, -94.0f), Quaternion.Euler(0.0f, 0.0f, 0.0f));
 
             Destroy(effectObj, 9.0f);
         }
         else if (itemQ == 2)
         {
-            effectObj = Instantiate(magicShowGreen, new Vector3(45.0f, 5.0f, -3.8f), Quaternion.Euler(0.0f, 0.0f, 0.0f));
+            effectObj = Instantiate(magicShowGreen, new Vector3(42.0f, 5.0f, -94.0f), Quaternion.Euler(0.0f, 0.0f, 0.0f));
         }
         else if (itemQ == 3)
         {
-            effectObj = Instantiate(magicShowPurple, new Vector3(45.0f, 5.0f, -3.8f), Quaternion.Euler(0.0f, 0.0f, 0.0f));
+            effectObj = Instantiate(magicShowPurple, new Vector3(42.0f, 5.0f, -94.0f), Quaternion.Euler(0.0f, 0.0f, 0.0f));
         }
 
         Debug.Log("소환: " + PlayerInfo.ItemListCount());
