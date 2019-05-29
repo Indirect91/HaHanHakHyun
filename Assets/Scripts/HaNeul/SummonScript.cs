@@ -46,8 +46,18 @@ public class SummonScript : MonoBehaviour
     //시간초
     int count = 0;
 
+    //인벤토리
+    public Inventory itemCount;
+
+    private void Start()
+    {
+        //컴포넌트 가져오기
+        itemCount = GameObject.Find("InvenItem").GetComponent<Inventory>();
+    }
+
     void Update()
     {
+        //Debug.Log("인벤 " + itemCount.invenCount);
         //플레이어가 소환하는 곳을 보고있을때
         if (PlayerFront.isSummons == true && isSummoning == false)
         {
@@ -100,12 +110,11 @@ public class SummonScript : MonoBehaviour
                 isSummoning = false;
                 isCheckSummon = false;
                 count = 0;
-
+               
                 //조이스틱 활성화
                 Joystic.SetActive(true);
             }
         }
-
     }
 
     //소환 Yes
@@ -169,6 +178,8 @@ public class SummonScript : MonoBehaviour
             itemQ = 1;
 
             PlayerInfo.SaveItemList("Apple", 7, PlayerInfo.ItemType.Food);
+            //중복으로 들어가지 않게 인벤토리 한칸 밀어주기
+            itemCount.invenCount++;
         }
         else if (randNum > 15 && randNum <= 30)
         {
@@ -177,6 +188,8 @@ public class SummonScript : MonoBehaviour
             showSummons = Instantiate(banana, new Vector3(42.0f, 0.0f, -94.0f), Quaternion.Euler(0.0f, 0.0f, 0.0f));
 
             PlayerInfo.SaveItemList("Banana", 10, PlayerInfo.ItemType.Food);
+            //중복으로 들어가지 않게 인벤토리 한칸 밀어주기
+            itemCount.invenCount++;
         }
         else if (randNum > 30 && randNum <= 36)
         {
@@ -185,6 +198,8 @@ public class SummonScript : MonoBehaviour
             showSummons = Instantiate(drinkCan, new Vector3(42.0f, 0.0f, -94.0f), Quaternion.Euler(0.0f, 0.0f, 0.0f));
 
             PlayerInfo.SaveItemList("DrinkCan", 12, PlayerInfo.ItemType.Food);
+            //중복으로 들어가지 않게 인벤토리 한칸 밀어주기
+            itemCount.invenCount++;
         }
         else if (randNum > 36 && randNum <= 56)
         {
@@ -193,6 +208,8 @@ public class SummonScript : MonoBehaviour
             showSummons = Instantiate(roastMeat, new Vector3(42.0f, 0.0f, -94.0f), Quaternion.Euler(0.0f, 0.0f, 0.0f));
 
             PlayerInfo.SaveItemList("RoastMeat", 10, PlayerInfo.ItemType.Food);
+            //중복으로 들어가지 않게 인벤토리 한칸 밀어주기
+            itemCount.invenCount++;
         }
         else if (randNum > 56 && randNum <= 66)
         {
@@ -201,6 +218,8 @@ public class SummonScript : MonoBehaviour
             showSummons = Instantiate(key, new Vector3(42.0f, 0.0f, -94.0f), Quaternion.Euler(0.0f, 0.0f, 0.0f));
 
             PlayerInfo.SaveItemList("Key", 0, PlayerInfo.ItemType.Key);
+            //중복으로 들어가지 않게 인벤토리 한칸 밀어주기
+            itemCount.invenCount++;
         }
         else if (randNum > 66 && randNum <= 73)
         {
@@ -231,6 +250,8 @@ public class SummonScript : MonoBehaviour
                 showSummons = Instantiate(apple, new Vector3(42.0f, 0.0f, -94.0f), Quaternion.Euler(0.0f, 0.0f, 0.0f));
 
                 PlayerInfo.SaveItemList("Apple", 7, PlayerInfo.ItemType.Food);
+                //중복으로 들어가지 않게 인벤토리 한칸 밀어주기
+                itemCount.invenCount++;
             }
         }
         else if (randNum > 85 && randNum <= 90)
@@ -250,6 +271,8 @@ public class SummonScript : MonoBehaviour
                 showSummons = Instantiate(banana, new Vector3(42.0f, 0.0f, -94.0f), Quaternion.Euler(0.0f, 0.0f, 0.0f));
 
                 PlayerInfo.SaveItemList("Banana", 10, PlayerInfo.ItemType.Food);
+                //중복으로 들어가지 않게 인벤토리 한칸 밀어주기
+                itemCount.invenCount++;
             }
         }
         else if (randNum > 90 && randNum <= 95)
@@ -269,6 +292,8 @@ public class SummonScript : MonoBehaviour
                 showSummons = Instantiate(apple, new Vector3(42.0f, 0.0f, -94.0f), Quaternion.Euler(0.0f, 0.0f, 0.0f));
 
                 PlayerInfo.SaveItemList("Apple", 7, PlayerInfo.ItemType.Food);
+                //중복으로 들어가지 않게 인벤토리 한칸 밀어주기
+                itemCount.invenCount++;
             }
         }
         else if (randNum > 95 && randNum <= 100)
@@ -288,6 +313,8 @@ public class SummonScript : MonoBehaviour
                 showSummons = Instantiate(banana, new Vector3(42.0f, 0.0f, -94.0f), Quaternion.Euler(0.0f, 0.0f, 0.0f));
 
                 PlayerInfo.SaveItemList("Banana", 10, PlayerInfo.ItemType.Food);
+                //중복으로 들어가지 않게 인벤토리 한칸 밀어주기
+                itemCount.invenCount++;
             }
         }
 
