@@ -68,8 +68,6 @@ public class GameManager : MonoBehaviour
 
                     int idx = Random.Range(0, randomChestPoints.Length-1);
                     Instantiate(randomChest, randomChestPoints[idx].position, randomChestPoints[idx].rotation);
-
-                    Debug.Log("박스 생성되는 중.....");
                 }
             }
             else

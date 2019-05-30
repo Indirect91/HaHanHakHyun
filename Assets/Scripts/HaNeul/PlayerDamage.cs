@@ -9,7 +9,7 @@ public class PlayerDamage : MonoBehaviour
     //HP 수치
     float MaxHp = 25.0f; //최대 hp
     float currHpBar; //현재 hp바
-    float currHp; //현재 hp기준
+    public static float currHp; //현재 hp기준
 
     //HP바 이미지
     public Image hpBarImg;

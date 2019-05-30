@@ -118,10 +118,6 @@ public class AnimalAI : MonoBehaviour
                 //float distance = (playerTr.position - animalTr.position).sqrMagnitude;
                 float distance = Vector3.Distance(playerTr.position, animalTr.position);
 
-                    if (PlayerInfo.clickTarget == this.gameObject)
-                    {
-                        Debug.Log(distance);
-                    }
                 //공격반경안에 들어오면 상태를 공격으로 바꾸고
                 if (distance <= attackDist)
                 {
@@ -190,6 +186,9 @@ public class AnimalAI : MonoBehaviour
 
                         if (animalAttack.isAttack == false)
                         {
+                            PlayerDamage.currHp -= 4;
+                            Debug.Log(PlayerDamage.currHp);
+
                             animalAttack.isAttack = true;
                         }
                         break;
@@ -212,7 +211,7 @@ public class AnimalAI : MonoBehaviour
                         animalTr.LookAt(playerTr.position);
                         animator.SetBool(hashMove, true);
                         animalTr.position = Vector3.Lerp(animalTr.position,playerTr.position, 0.01f);
-                        //animalTr.position = Vector3.MoveTowards(animalTr.position, playerTr.position, 2*Time.deltaTime);
+                        
                         break;
                     case AnimalState.Idle:
                         animalAttack.isAttack = false;
