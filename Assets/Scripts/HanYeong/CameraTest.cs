@@ -11,6 +11,9 @@ public class CameraTest : MonoBehaviour
     Vector3 originDistance; //초기 거리 저장
     Vector3 startDistance;
     GameObject hitObstacle = null; //플레이어와 카메라 사이 오브젝트
+    [SerializeField] public GameObject toStart;
+    [SerializeField] public GameObject toStart2;
+
 
     public static bool rotateRight = false;
     public static bool rotateLeft = false;
@@ -23,7 +26,7 @@ public class CameraTest : MonoBehaviour
     {
         playerTr = GameObject.FindWithTag("Player").GetComponent<Transform>(); //플레이어의 위치를 받아올 트랜스폼 담아둠
         originDistance = this.transform.position - playerTr.position; //첫 거리 계산해서 저장
-        startDistance = 3 * originDistance;
+        startDistance = 4 * originDistance;
     }
 
     private void Update()
@@ -90,6 +93,8 @@ public class CameraTest : MonoBehaviour
             if(Vector3.Distance(transform.position, playerTr.position + originDistance)<1)
             {
                 stillMoving = false;
+                toStart.SetActive(true);
+                toStart2.SetActive(true);
             }
         }
         else

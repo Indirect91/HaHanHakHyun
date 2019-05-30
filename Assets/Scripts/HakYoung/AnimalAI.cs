@@ -61,6 +61,9 @@ public class AnimalAI : MonoBehaviour
     //이동을 제어하는 MoveAgent 클래스를 저장할 변수,
     private AnimalMoveAgent moveAgent;
 
+    //공격주기
+    int attackCool = 0;
+
     //애니메이터 컨트롤러에 정의한 파라미터의 해시값을 미리 추출
     private readonly int hashMove = Animator.StringToHash("IsMove");
     private readonly int hashSpeed = Animator.StringToHash("Speed");
@@ -183,12 +186,16 @@ public class AnimalAI : MonoBehaviour
                         moveAgent.Stop();
                         transform.LookAt(playerTr.position);
                         animator.SetBool(hashMove, false);
-
-                        if (animalAttack.isAttack == false)
+                        attackCool++;
+                        if(attackCool %60*60 ==0)
                         {
+    
                             PlayerDamage.currHp -= 4;
                             Debug.Log(PlayerDamage.currHp);
-
+                        }
+                        if (animalAttack.isAttack == false)
+                        {
+                            attackCool = -35;
                             animalAttack.isAttack = true;
                         }
                         break;
